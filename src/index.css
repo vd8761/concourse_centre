@@ -1,0 +1,114 @@
+@import "tailwindcss";
+
+@theme {
+  --color-midnight-navy: #071A2F;
+  --color-deep-global-blue: #0B2A4A;
+  --color-electric-blue: #2F80ED;
+  --color-signal-cyan: #38BDF8;
+  --color-verified-emerald: #10B981;
+  --color-prestige-gold: #F5B041;
+  --color-cloud-white: #F8FAFC;
+  --color-slate-text: #334155;
+  --color-soft-border: #D9E2EC;
+}
+
+:root {
+  /* Master Brand Palette */
+  --color-midnight-navy: #071A2F;
+  --color-deep-global-blue: #0B2A4A;
+  --color-electric-blue: #2F80ED;
+  --color-signal-cyan: #38BDF8;
+  --color-verified-emerald: #10B981;
+  --color-prestige-gold: #F5B041;
+  --color-cloud-white: #F8FAFC;
+  --color-slate-text: #334155;
+  --color-soft-border: #D9E2EC;
+  --color-white: #FFFFFF;
+
+  /* Typography */
+  --font-heading: 'Plus Jakarta Sans', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'Space Grotesk', sans-serif;
+
+  /* UI Tokens */
+  --border-radius-sm: 4px;
+  --border-radius-md: 6px;
+  --border-radius-lg: 8px;
+  --border-radius-xl: 12px;
+  --border-radius-pill: 9999px;
+  
+  --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+  --shadow-soft: 0 8px 30px rgba(11, 31, 58, 0.05);
+  
+  --transition-normal: all 0.3s ease;
+  --transition-fast: all 0.15s ease;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  font-family: var(--font-body);
+  color: var(--color-slate-text);
+  background-color: var(--color-white);
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-heading);
+  color: var(--color-deep-navy);
+  line-height: 1.2;
+  margin-bottom: 1rem;
+}
+
+a {
+  color: var(--color-electric-blue);
+  text-decoration: none;
+  transition: var(--transition-fast);
+}
+
+a:hover {
+  color: var(--color-midnight-navy);
+}
+
+ul {
+  list-style: none;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+}
+
+.container {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 24px;
+}
+
+/* Typography Utilities */
+.text-center { text-align: center; }
+.text-left { text-align: left; }
+.text-primary { color: var(--color-electric-blue); }
+.text-emerald { color: var(--color-verified-emerald); }
+.text-white { color: var(--color-white); }
+.text-slate { color: var(--color-slate-text); }
+
+.section-title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  color: var(--color-midnight-navy);
+  margin-bottom: 1rem;
+  line-height: 1.2;
+}
+
+/* End of custom CSS */
