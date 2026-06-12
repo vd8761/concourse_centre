@@ -88,6 +88,20 @@ const Apply = () => {
                 </div>
                 
                 {/* Form Elements */}
+                {isSubmitted ? (
+                  <div style={{ padding: '60px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '400px' }}>
+                    <div style={{ width: '80px', height: '80px', background: 'rgba(34, 197, 94, 0.1)', color: '#22c55e', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+                      <CheckCircle2 size={40} />
+                    </div>
+                    <h3 style={{ fontSize: '2rem', color: 'var(--deep-navy)', marginBottom: '16px' }}>Application Sent Successfully!</h3>
+                    <p style={{ color: 'var(--text-light)', fontSize: '1.1rem', maxWidth: '400px', lineHeight: '1.6', marginBottom: '32px' }}>
+                      Thank you for applying. We have received your application and will review it shortly.
+                    </p>
+                    <button onClick={() => setIsSubmitted(false)} className="btn btn-primary glow-primary" style={{ border: 'none', cursor: 'pointer', padding: '12px 24px', borderRadius: '8px', fontWeight: '600' }}>
+                      Submit Another Application
+                    </button>
+                  </div>
+                ) : (
                 <form 
                   noValidate
                   onSubmit={(e) => {
@@ -130,7 +144,6 @@ const Apply = () => {
                           setSubmitError(data.error);
                         } else {
                           setIsSubmitted(true);
-                          setTimeout(() => setIsSubmitted(false), 5000);
                           setFormData({ firstName: '', lastName: '', email: '', institution: '', linkedin: '', companyName: '', role: '' });
                           setTurnstileToken(null);
                         }
@@ -143,11 +156,6 @@ const Apply = () => {
                   }} 
                   style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
                 >
-                  {isSubmitted && (
-                    <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', color: 'var(--emerald-green)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
-                      Thank you! Your application has been submitted successfully. We will get back to you within 48 hours.
-                    </div>
-                  )}
                   {submitError && (
                     <div style={{ padding: '16px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
                       {submitError}
@@ -216,6 +224,7 @@ const Apply = () => {
                     By submitting, you agree to our Privacy Policy.
                   </p>
                 </form>
+                )}
 
               </div>
             </div>

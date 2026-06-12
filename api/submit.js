@@ -37,34 +37,73 @@ export default async function handler(req, res) {
   const isApply = formType === 'apply';
   const formName = isApply ? 'Application Form' : 'Contact/Enquiry Form';
   
+  // Base styles for the email
+  const brandColor = '#2563eb';
+  const bgColor = '#f8fafc';
+  const cardColor = '#ffffff';
+  const textColor = '#334155';
+
   // Format the form data into a readable HTML table
-  let detailsHtml = '<table style="border-collapse: collapse; width: 100%; max-width: 600px;">';
+  let detailsHtml = `
+    <table width="100%" cellpadding="0" cellspacing="0" style="border-collapse: collapse; margin-top: 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;">
+  `;
   for (const [key, value] of Object.entries(formData)) {
     // Capitalize key
     const formattedKey = key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
     detailsHtml += `
       <tr>
-        <td style="padding: 10px; border-bottom: 1px solid #eee; font-weight: bold; width: 35%;">${formattedKey}</td>
-        <td style="padding: 10px; border-bottom: 1px solid #eee;">${value || 'N/A'}</td>
+        <td style="padding: 14px 0; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #64748b; width: 35%; align: left; font-size: 15px;">${formattedKey}</td>
+        <td style="padding: 14px 0; border-bottom: 1px solid #e2e8f0; color: #0f172a; font-size: 15px;">${value || 'N/A'}</td>
       </tr>
     `;
   }
   detailsHtml += '</table>';
 
+  // Professional Email Template Wrapper
+  const getEmailTemplate = (title, content) => `
+    <!DOCTYPE html>
+    <html>
+      <head>
+        <meta charset="utf-8">
+        <title>${title}</title>
+      </head>
+      <body style="background-color: ${bgColor}; margin: 0; padding: 40px 20px; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="max-width: 600px; margin: 0 auto; background-color: ${cardColor}; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05); border: 1px solid #e2e8f0;">
+          <tr>
+            <td style="background-color: ${brandColor}; padding: 32px 40px; text-align: center;">
+              <h1 style="color: #ffffff; margin: 0; font-size: 24px; font-weight: 600; letter-spacing: 0.5px;">Touchmark Concourse Centre</h1>
+            </td>
+          </tr>
+          <tr>
+            <td style="padding: 40px; color: ${textColor}; line-height: 1.6; font-size: 16px;">
+              ${content}
+            </td>
+          </tr>
+          <tr>
+            <td style="background-color: #f1f5f9; padding: 24px 40px; text-align: center; color: #64748b; font-size: 14px; border-top: 1px solid #e2e8f0;">
+              &copy; ${new Date().getFullYear()} Touchmark Concourse Centre. All rights reserved.
+            </td>
+          </tr>
+        </table>
+      </body>
+    </html>
+  `;
+
   try {
     // 3. Send "New Enquiry" email to Admins
     if (ADMIN_EMAILS.length > 0) {
       await resend.emails.send({
-        from: 'Concourse Centre <onboarding@resend.dev>', // You should change this to a verified domain on Resend later
+        from: 'Touchmark Concourse Centre <no-reply@touchmarkdes.com>',
         to: ADMIN_EMAILS,
         subject: `New ${formName} Submission from ${formData.name || formData.firstName}`,
-        html: `
-          <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <h2 style="color: #2563eb;">New ${formName} Submission</h2>
-            <p>You have received a new submission. Details are below:</p>
+        html: getEmailTemplate(
+          `New ${formName} Submission`,
+          `
+            <h2 style="color: #0f172a; margin-top: 0; font-size: 20px;">New ${formName} Submission</h2>
+            <p style="color: #475569;">You have received a new submission on the website. Here are the details:</p>
             ${detailsHtml}
-          </div>
-        `,
+          `
+        ),
       });
     }
 
@@ -74,21 +113,27 @@ export default async function handler(req, res) {
     
     if (userEmail) {
       await resend.emails.send({
-        from: 'Concourse Centre <onboarding@resend.dev>', // You should change this to a verified domain on Resend later
+        from: 'Touchmark Concourse Centre <no-reply@touchmarkdes.com>',
         to: userEmail,
-        subject: `Thank you for contacting Concourse Centre`,
-        html: `
-          <div style="font-family: Arial, sans-serif; line-height: 1.6; color: #333;">
-            <h2 style="color: #2563eb;">Thank you, ${userName}!</h2>
-            <p>We have successfully received your ${isApply ? 'application' : 'enquiry'}.</p>
-            <p>Our team will review your details and get back to you within 2 business days.</p>
-            <br/>
-            <p><strong>A copy of what you submitted:</strong></p>
-            ${detailsHtml}
-            <br/>
-            <p>Best regards,<br/>The Concourse Centre Team</p>
-          </div>
-        `,
+        subject: `Thank you for contacting Touchmark Concourse Centre`,
+        html: getEmailTemplate(
+          `Thank you for contacting us`,
+          `
+            <h2 style="color: #0f172a; margin-top: 0; font-size: 20px;">Hi ${userName},</h2>
+            <p style="color: #475569;">Thank you for reaching out to us. We have successfully received your ${isApply ? 'application' : 'enquiry'}.</p>
+            <p style="color: #475569;">Our team will review your details and get back to you within 2 business days.</p>
+            
+            <div style="margin-top: 32px; padding-top: 32px; border-top: 2px dashed #e2e8f0;">
+              <p style="margin: 0; font-weight: 600; color: #0f172a; font-size: 18px;">A copy of your submission:</p>
+              ${detailsHtml}
+            </div>
+            
+            <p style="margin-top: 40px; color: #475569;">
+              Best regards,<br/>
+              <strong style="color: #0f172a;">The Touchmark Concourse Centre Team</strong>
+            </p>
+          `
+        ),
       });
     }
 

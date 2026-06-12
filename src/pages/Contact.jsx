@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from 'react';
-import { Mail, MapPin, Phone, MessageSquare, ArrowRight } from 'lucide-react';
+import { Mail, MapPin, Phone, MessageSquare, ArrowRight, CheckCircle2 } from 'lucide-react';
 import CountrySelect from '../components/CountrySelect';
 import { countries } from '../utils/countries';
 import HumanVerification from '../components/HumanVerification';
@@ -89,6 +89,20 @@ const Contact = () => {
               <div className="bento-card" style={{ padding: '48px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
                 <h3 style={{ fontSize: '1.5rem', marginBottom: '32px' }}>Send a Message</h3>
                 
+                {isSubmitted ? (
+                  <div style={{ padding: '60px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '400px' }}>
+                    <div style={{ width: '80px', height: '80px', background: 'rgba(34, 197, 94, 0.1)', color: '#22c55e', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
+                      <CheckCircle2 size={40} />
+                    </div>
+                    <h3 style={{ fontSize: '2rem', color: 'var(--deep-navy)', marginBottom: '16px' }}>Enquiry Sent Successfully!</h3>
+                    <p style={{ color: 'var(--text-light)', fontSize: '1.1rem', maxWidth: '400px', lineHeight: '1.6', marginBottom: '32px' }}>
+                      Thank you for reaching out to Concourse. We have received your message and our team will get back to you shortly.
+                    </p>
+                    <button onClick={() => setIsSubmitted(false)} className="btn btn-primary glow-primary" style={{ border: 'none', cursor: 'pointer', padding: '12px 24px', borderRadius: '8px', fontWeight: '600' }}>
+                      Send Another Enquiry
+                    </button>
+                  </div>
+                ) : (
                 <form 
                   noValidate 
                   onSubmit={(e) => {
@@ -136,7 +150,6 @@ const Contact = () => {
                           setSubmitError(data.error);
                         } else {
                           setIsSubmitted(true);
-                          setTimeout(() => setIsSubmitted(false), 5000);
                           setFormData({ name: '', email: '', phone: '', role: '', company: '', programme: '', message: '' });
                           setTurnstileToken(null);
                         }
@@ -149,11 +162,6 @@ const Contact = () => {
                   }} 
                   style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
                 >
-                  {isSubmitted && (
-                    <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', color: 'var(--emerald-green)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
-                      Thank you! Your enquiry has been submitted successfully. We will get back to you shortly.
-                    </div>
-                  )}
                   {submitError && (
                     <div style={{ padding: '16px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
                       {submitError}
@@ -272,7 +280,7 @@ const Contact = () => {
                     </div>
                   </div>
                 </form>
-
+                )}
               </div>
             </div>
 
