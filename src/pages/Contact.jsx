@@ -17,7 +17,9 @@ const Contact = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [turnstileToken, setTurnstileToken] = useState(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -110,15 +112,39 @@ const Contact = () => {
                     if (!formData.programme) newErrors.programme = 'Please select a programme of interest';
                     if (!formData.message.trim()) newErrors.message = 'Please provide a message';
                     
-                    if (!isVerified) newErrors.verification = 'Please complete the human verification step';
+                    if (!turnstileToken) newErrors.verification = 'Please complete the human verification step';
                     
                     setErrors(newErrors);
                     
                     if (Object.keys(newErrors).length === 0) {
-                      setIsSubmitted(true);
-                      setTimeout(() => setIsSubmitted(false), 5000);
-                      setFormData({ name: '', email: '', phone: '', role: '', company: '', programme: '', message: '' });
-                      setIsVerified(false);
+                      setIsSubmitting(true);
+                      setSubmitError(null);
+                      
+                      fetch('/api/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          formType: 'contact',
+                          formData,
+                          turnstileToken
+                        })
+                      })
+                      .then(res => res.json())
+                      .then(data => {
+                        setIsSubmitting(false);
+                        if (data.error) {
+                          setSubmitError(data.error);
+                        } else {
+                          setIsSubmitted(true);
+                          setTimeout(() => setIsSubmitted(false), 5000);
+                          setFormData({ name: '', email: '', phone: '', role: '', company: '', programme: '', message: '' });
+                          setTurnstileToken(null);
+                        }
+                      })
+                      .catch(err => {
+                        setIsSubmitting(false);
+                        setSubmitError('Failed to send enquiry. Please try again later.');
+                      });
                     }
                   }} 
                   style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
@@ -126,6 +152,11 @@ const Contact = () => {
                   {isSubmitted && (
                     <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', color: 'var(--emerald-green)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
                       Thank you! Your enquiry has been submitted successfully. We will get back to you shortly.
+                    </div>
+                  )}
+                  {submitError && (
+                    <div style={{ padding: '16px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
+                      {submitError}
                     </div>
                   )}
 
@@ -224,16 +255,16 @@ const Contact = () => {
                   </div>
                   
                   <HumanVerification 
-                    onChange={(valid) => {
-                      setIsVerified(valid);
-                      if (valid && errors.verification) setErrors({...errors, verification: null});
+                    onChange={(token) => {
+                      setTurnstileToken(token);
+                      if (token && errors.verification) setErrors({...errors, verification: null});
                     }} 
                     error={errors.verification} 
                   />
                   
                   <div style={{ display: 'flex', gap: '24px', alignItems: 'center', marginTop: '16px' }}>
-                    <button type="submit" className="btn btn-primary glow-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: 'none', cursor: 'pointer', flexShrink: 0 }}>
-                      Submit Enquiry <ArrowRight size={18} />
+                    <button type="submit" disabled={isSubmitting} className="btn btn-primary glow-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', opacity: isSubmitting ? 0.7 : 1, flexShrink: 0 }}>
+                      {isSubmitting ? 'Sending...' : 'Submit Enquiry'} <ArrowRight size={18} />
                     </button>
                     <div style={{ fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6' }}>
                       We respond within 2 business days.<br/>

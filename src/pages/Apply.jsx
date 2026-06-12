@@ -15,7 +15,9 @@ const Apply = () => {
   });
   const [errors, setErrors] = useState({});
   const [isSubmitted, setIsSubmitted] = useState(false);
-  const [isVerified, setIsVerified] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(null);
+  const [turnstileToken, setTurnstileToken] = useState(null);
 
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
@@ -104,15 +106,39 @@ const Apply = () => {
                       if (!formData.role.trim()) newErrors.role = 'Role / Title is required';
                     }
 
-                    if (!isVerified) newErrors.verification = 'Please complete the human verification step';
+                    if (!turnstileToken) newErrors.verification = 'Please complete the human verification step';
                     
                     setErrors(newErrors);
                     
                     if (Object.keys(newErrors).length === 0) {
-                      setIsSubmitted(true);
-                      setTimeout(() => setIsSubmitted(false), 5000);
-                      setFormData({ firstName: '', lastName: '', email: '', institution: '', linkedin: '', companyName: '', role: '' });
-                      setIsVerified(false);
+                      setIsSubmitting(true);
+                      setSubmitError(null);
+                      
+                      fetch('/api/submit', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({
+                          formType: 'apply',
+                          formData: { ...formData, applicantType },
+                          turnstileToken
+                        })
+                      })
+                      .then(res => res.json())
+                      .then(data => {
+                        setIsSubmitting(false);
+                        if (data.error) {
+                          setSubmitError(data.error);
+                        } else {
+                          setIsSubmitted(true);
+                          setTimeout(() => setIsSubmitted(false), 5000);
+                          setFormData({ firstName: '', lastName: '', email: '', institution: '', linkedin: '', companyName: '', role: '' });
+                          setTurnstileToken(null);
+                        }
+                      })
+                      .catch(err => {
+                        setIsSubmitting(false);
+                        setSubmitError('Failed to send application. Please try again later.');
+                      });
                     }
                   }} 
                   style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
@@ -120,6 +146,11 @@ const Apply = () => {
                   {isSubmitted && (
                     <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', color: 'var(--emerald-green)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
                       Thank you! Your application has been submitted successfully. We will get back to you within 48 hours.
+                    </div>
+                  )}
+                  {submitError && (
+                    <div style={{ padding: '16px', background: 'rgba(239, 68, 68, 0.1)', color: '#ef4444', borderRadius: '8px', border: '1px solid rgba(239, 68, 68, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
+                      {submitError}
                     </div>
                   )}
 
@@ -170,10 +201,16 @@ const Apply = () => {
                     </>
                   )}
                   
-                  <HumanVerification onChange={setIsVerified} error={errors.verification} />
+                  <HumanVerification 
+                    onChange={(token) => {
+                      setTurnstileToken(token);
+                      if (token && errors.verification) setErrors({...errors, verification: null});
+                    }} 
+                    error={errors.verification} 
+                  />
 
-                  <button type="submit" className="btn btn-primary glow-primary" style={{ marginTop: '16px', width: '100%', padding: '16px', display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '1.05rem', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>
-                    Submit Application <Send size={18} />
+                  <button type="submit" disabled={isSubmitting} className="btn btn-primary glow-primary" style={{ marginTop: '16px', width: '100%', padding: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '8px', fontSize: '1.05rem', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: isSubmitting ? 'not-allowed' : 'pointer', opacity: isSubmitting ? 0.7 : 1 }}>
+                    {isSubmitting ? 'Submitting Application...' : 'Submit Application'} <ArrowRight size={18} />
                   </button>
                   <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-light)', marginTop: '8px' }}>
                     By submitting, you agree to our Privacy Policy.

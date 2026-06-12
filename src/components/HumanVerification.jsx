@@ -4,7 +4,6 @@ import { Turnstile } from '@marsidev/react-turnstile';
 const HumanVerification = ({ onChange, error }) => {
   return (
     <div className="form-group" style={{ marginBottom: '0' }}>
-      <label className="form-label">Human Verification <span style={{ color: '#ef4444' }}>*</span></label>
       <div style={{ 
         border: error ? '1px solid #ef4444' : 'none', 
         borderRadius: '8px',
@@ -12,8 +11,8 @@ const HumanVerification = ({ onChange, error }) => {
         minHeight: '65px'
       }}>
         <Turnstile 
-          siteKey="3x00000000000000000000FF" 
-          onSuccess={(token) => onChange(true)}
+          siteKey={import.meta.env.VITE_TURNSTILE_SITE_KEY || '3x00000000000000000000FF'} 
+          onSuccess={(token) => onChange(token)}
           options={{ theme: 'light' }}
         />
       </div>
