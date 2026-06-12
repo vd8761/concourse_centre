@@ -1,91 +1,254 @@
-import React from 'react';
-import Button from '../components/ui/Button';
+import React, { useEffect, useState } from 'react';
+import { Mail, MapPin, Phone, MessageSquare, ArrowRight } from 'lucide-react';
+import CountrySelect from '../components/CountrySelect';
+import { countries } from '../utils/countries';
+import HumanVerification from '../components/HumanVerification';
 
 const Contact = () => {
+  const [countryCode, setCountryCode] = useState('+91');
+  const [formData, setFormData] = useState({
+    name: '',
+    email: '',
+    phone: '',
+    role: '',
+    company: '',
+    programme: '',
+    message: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="bg-cloud-white min-h-screen">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-        
-        {/* Left Side (Dark) */}
-        <div className="bg-midnight-navy text-white relative overflow-hidden py-20 px-8 lg:px-20 flex flex-col justify-center">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(47,128,237,0.1)_0,transparent_50%)]"></div>
-          <div className="absolute bottom-0 left-0 w-full h-[300px] bg-gradient-to-t from-electric-blue/10 to-transparent"></div>
-          
-          <div className="relative z-10 max-w-xl mx-auto lg:mx-0">
-            <h1 className="font-heading font-extrabold text-5xl lg:text-7xl text-white mb-6">Get in Touch.</h1>
-            <p className="text-cloud-white opacity-80 text-xl leading-relaxed mb-16">
-              Whether you're looking to <span className="text-prestige-gold font-bold">join our programmes</span> or explore <span className="text-white font-bold">institutional partnerships</span>, our team is ready to assist you.
+    <div style={{ paddingTop: '96px', background: 'var(--light-bg)', minHeight: '100vh' }}>
+      
+      <section style={{ padding: '60px 0', position: 'relative' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 64px' }} className="animate-on-scroll">
+            <span className="badge" style={{ display: 'inline-flex', marginBottom: '24px' }}>
+              <MessageSquare size={16} /> <span>Get in Touch</span>
+            </span>
+            <h1 style={{ fontSize: '3.5rem', marginBottom: '24px', letterSpacing: '-0.03em' }}>
+              Let's start a <span className="text-gradient-blue">conversation.</span>
+            </h1>
+            <p className="subtitle" style={{ fontSize: '1.25rem' }}>
+              Have questions about our programmes or partnership opportunities? Our team is ready to help.
             </p>
+          </div>
+
+          <div className="grid-4-8" style={{ gap: '48px', alignItems: 'stretch' }}>
             
-            <div className="border-t border-white/10 pt-12">
-              <h3 className="font-bold text-electric-blue uppercase tracking-wider text-sm mb-4">Corporate Headquarters</h3>
-              <p className="text-cloud-white opacity-80 leading-relaxed mb-6">
-                Tech Park, Phase 1<br/>
-                Bangalore, India
-              </p>
-              <div className="flex items-center gap-3 text-cloud-white opacity-80">
-                <span className="font-bold text-electric-blue">Email:</span>
-                <a href="mailto:hello@touchmark.com" className="hover:text-white transition-colors">hello@touchmark.com</a>
+            {/* Contact Information Cards */}
+            <div className="animate-on-scroll" style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              <div className="bento-card" style={{ padding: '40px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+                <div style={{ width: '56px', height: '56px', background: 'rgba(37, 99, 235, 0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: 'var(--royal-blue)' }}>
+                  <Mail size={28} />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.25rem', marginBottom: '8px' }}>Email Us</h3>
+                  <p style={{ color: 'var(--text-light)', marginBottom: '16px', lineHeight: '1.5' }}>For general inquiries and partnership opportunities.</p>
+                  <a href="mailto:hello@touchmarkconcourse.com" style={{ color: 'var(--royal-blue)', fontWeight: '600', display: 'inline-flex', alignItems: 'center', gap: '8px' }}>
+                    hello@touchmarkconcourse.com <ArrowRight size={16} />
+                  </a>
+                </div>
+              </div>
+
+              <div className="bento-card" style={{ padding: '40px', display: 'flex', gap: '24px', alignItems: 'flex-start' }}>
+                <div style={{ width: '56px', height: '56px', background: 'rgba(37, 99, 235, 0.1)', borderRadius: '16px', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: 'var(--royal-blue)' }}>
+                  <MapPin size={28} />
+                </div>
+                <div>
+                  <h3 style={{ fontSize: '1.25rem', marginBottom: '8px' }}>Headquarters</h3>
+                  <p style={{ color: 'var(--text-light)', lineHeight: '1.6' }}>
+                    Tamarai Tech Park<br/>
+                    12, 16, Jawaharlal Nehru Salai, Guindy Industrial Estate, SIDCO Industrial Estate, Guindy, Chennai, Tamil Nadu 600032
+                  </p>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
-
-        {/* Right Side (Light Form) */}
-        <div className="bg-white py-20 px-8 lg:px-20 flex flex-col justify-center">
-          <div className="max-w-xl mx-auto lg:mx-0 w-full">
-            <h2 className="font-heading font-extrabold text-3xl lg:text-4xl text-midnight-navy mb-10">Send an Enquiry</h2>
             
-            <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="fullName" className="font-bold text-slate-text text-sm uppercase tracking-wider">Full Name</label>
-                  <input type="text" id="fullName" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="John Doe" required />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="font-bold text-slate-text text-sm uppercase tracking-wider">Email Address</label>
-                  <input type="email" id="email" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="john@example.com" required />
-                </div>
-              </div>
+            {/* Direct Message Form */}
+            <div className="animate-on-scroll delay-100">
+              <div className="bento-card" style={{ padding: '48px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
+                <h3 style={{ fontSize: '1.5rem', marginBottom: '32px' }}>Send a Message</h3>
+                
+                <form 
+                  noValidate 
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const newErrors = {};
+                    if (!formData.name.trim()) newErrors.name = 'Full Name is required';
+                    if (!formData.email.trim()) newErrors.email = 'Email Address is required';
+                    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Please enter a valid email address';
+                    
+                    const country = countries.find(c => c.code === countryCode);
+                    const expectedLength = country ? country.length : 10;
+                    
+                    if (!formData.phone.trim()) {
+                      newErrors.phone = 'Phone Number is required';
+                    } else if (!new RegExp(`^[0-9]{${expectedLength}}$`).test(formData.phone)) {
+                      newErrors.phone = `Phone number must be ${expectedLength} digits`;
+                    }
 
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="phone" className="font-bold text-slate-text text-sm uppercase tracking-wider">Phone Number</label>
-                  <input type="tel" id="phone" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="+91 9876543210" required />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="audience" className="font-bold text-slate-text text-sm uppercase tracking-wider">I am a...</label>
-                  <select id="audience" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors" required>
-                    <option value="">Select your profile</option>
-                    <option value="student">Student</option>
-                    <option value="institution">Institution Representative</option>
-                    <option value="company">Company Representative</option>
-                  </select>
-                </div>
-              </div>
+                    if (!formData.role) newErrors.role = 'Please select your role';
+                    if (!formData.company.trim()) newErrors.company = 'College / Company Name is required';
+                    if (!formData.programme) newErrors.programme = 'Please select a programme of interest';
+                    if (!formData.message.trim()) newErrors.message = 'Please provide a message';
+                    
+                    if (!isVerified) newErrors.verification = 'Please complete the human verification step';
+                    
+                    setErrors(newErrors);
+                    
+                    if (Object.keys(newErrors).length === 0) {
+                      setIsSubmitted(true);
+                      setTimeout(() => setIsSubmitted(false), 5000);
+                      setFormData({ name: '', email: '', phone: '', role: '', company: '', programme: '', message: '' });
+                      setIsVerified(false);
+                    }
+                  }} 
+                  style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+                >
+                  {isSubmitted && (
+                    <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', color: 'var(--emerald-green)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
+                      Thank you! Your enquiry has been submitted successfully. We will get back to you shortly.
+                    </div>
+                  )}
 
-              <div className="flex flex-col gap-2">
-                <label htmlFor="programme" className="font-bold text-slate-text text-sm uppercase tracking-wider">Programme of Interest</label>
-                <select id="programme" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors">
-                  <option value="cgip">Concourse Global Internship Programme (CGIP)</option>
-                  <option value="venture_sprint">Venture Sprint Programme</option>
-                  <option value="partnership">Institution Partnership</option>
-                  <option value="other">Other Enquiry</option>
-                </select>
-              </div>
+                  <div className="grid-2" style={{ gap: '20px' }}>
+                    <div className="form-group">
+                      <label className="form-label">Full Name <span style={{ color: '#ef4444' }}>*</span></label>
+                      <input type="text" placeholder="Your full name" className={`form-input ${errors.name ? 'input-error' : ''}`} value={formData.name} onChange={e => { setFormData({...formData, name: e.target.value}); if(errors.name) setErrors({...errors, name: null}) }} />
+                      {errors.name && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.name}</span>}
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Email Address <span style={{ color: '#ef4444' }}>*</span></label>
+                      <input type="email" placeholder="your@email.com" className={`form-input ${errors.email ? 'input-error' : ''}`} value={formData.email} onChange={e => { setFormData({...formData, email: e.target.value}); if(errors.email) setErrors({...errors, email: null}) }} />
+                      {errors.email && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.email}</span>}
+                    </div>
+                  </div>
+                  
+                  <div className="grid-2" style={{ gap: '20px' }}>
+                    <div className="form-group">
+                      <label className="form-label">Phone Number <span style={{ color: '#ef4444' }}>*</span></label>
+                      <div style={{ display: 'flex', gap: '8px', alignItems: 'stretch' }}>
+                        <CountrySelect 
+                          value={countryCode} 
+                          onChange={(code) => {
+                            setCountryCode(code);
+                            if(errors.phone) setErrors({...errors, phone: null});
+                            setFormData({...formData, phone: ''});
+                          }} 
+                        />
+                        <div style={{ position: 'relative', flex: 1, display: 'flex', alignItems: 'center' }}>
+                          <input 
+                            type="tel" 
+                            placeholder={`${countries.find(c => c.code === countryCode)?.length || 10}-digit number`} 
+                            className={`form-input ${errors.phone ? 'input-error' : ''}`} 
+                            style={{ width: '100%', height: '52px', paddingRight: '60px' }}
+                            maxLength={countries.find(c => c.code === countryCode)?.length || 15}
+                            value={formData.phone}
+                            onChange={e => {
+                              const val = e.target.value.replace(/[^0-9]/g, '');
+                              setFormData({...formData, phone: val});
+                              if(errors.phone) setErrors({...errors, phone: null});
+                            }}
+                          />
+                          <span style={{ 
+                            position: 'absolute', 
+                            right: '16px', 
+                            fontSize: '0.85rem', 
+                            color: 'var(--text-light)',
+                            opacity: 0.7,
+                            fontWeight: '400',
+                            pointerEvents: 'none'
+                          }}>
+                            {formData.phone.length}/{countries.find(c => c.code === countryCode)?.length || 10}
+                          </span>
+                        </div>
+                      </div>
+                      {errors.phone && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.phone}</span>}
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">I am a... <span style={{ color: '#ef4444' }}>*</span></label>
+                      <select className={`form-input ${errors.role ? 'input-error' : ''}`} value={formData.role} onChange={e => { setFormData({...formData, role: e.target.value}); if(errors.role) setErrors({...errors, role: null}) }}>
+                        <option value="">Select your role</option>
+                        <option>Student - Looking for International Internship</option>
+                        <option>Institution - Placement / Training Officer</option>
+                        <option>Company - Looking to Host Interns</option>
+                        <option>Company - Looking to Partner on a Programme</option>
+                        <option>Other</option>
+                      </select>
+                      {errors.role && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.role}</span>}
+                    </div>
+                  </div>
 
-              <div className="flex flex-col gap-2 mt-4">
-                <label htmlFor="message" className="font-bold text-slate-text text-sm uppercase tracking-wider">Message</label>
-                <textarea id="message" rows="4" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors resize-none placeholder:text-slate-text/30" placeholder="How can we help you?" required></textarea>
-              </div>
+                  <div className="grid-2" style={{ gap: '20px' }}>
+                    <div className="form-group">
+                      <label className="form-label">College / Company Name <span style={{ color: '#ef4444' }}>*</span></label>
+                      <input type="text" placeholder="Your college or company" className={`form-input ${errors.company ? 'input-error' : ''}`} value={formData.company} onChange={e => { setFormData({...formData, company: e.target.value}); if(errors.company) setErrors({...errors, company: null}) }} />
+                      {errors.company && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.company}</span>}
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Programme of Interest <span style={{ color: '#ef4444' }}>*</span></label>
+                      <select className={`form-input ${errors.programme ? 'input-error' : ''}`} value={formData.programme} onChange={e => { setFormData({...formData, programme: e.target.value}); if(errors.programme) setErrors({...errors, programme: null}) }}>
+                        <option value="">Select programme</option>
+                        <option>Concourse Global Internship Programme (CGIP)</option>
+                        <option>Concourse Venture Sprint Programme</option>
+                        <option>Concourse Research Fellowship</option>
+                        <option>Concourse Institution Partnership</option>
+                        <option>General Enquiry</option>
+                      </select>
+                      {errors.programme && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.programme}</span>}
+                    </div>
+                  </div>
 
-              <div className="mt-4">
-                <Button variant="primary" size="lg" className="w-full py-4 text-lg" type="submit">Send Message</Button>
+                  <div className="form-group">
+                    <label className="form-label">Your Message <span style={{ color: '#ef4444' }}>*</span></label>
+                    <textarea placeholder="Tell us a little about yourself, your institution, or what you're looking for. The more context you give, the better we can help." rows="4" className={`form-input ${errors.message ? 'input-error' : ''}`} style={{ resize: 'vertical' }} value={formData.message} onChange={e => { setFormData({...formData, message: e.target.value}); if(errors.message) setErrors({...errors, message: null}) }}></textarea>
+                    {errors.message && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.message}</span>}
+                  </div>
+                  
+                  <HumanVerification 
+                    onChange={(valid) => {
+                      setIsVerified(valid);
+                      if (valid && errors.verification) setErrors({...errors, verification: null});
+                    }} 
+                    error={errors.verification} 
+                  />
+                  
+                  <div style={{ display: 'flex', gap: '24px', alignItems: 'center', marginTop: '16px' }}>
+                    <button type="submit" className="btn btn-primary glow-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: 'none', cursor: 'pointer', flexShrink: 0 }}>
+                      Submit Enquiry <ArrowRight size={18} />
+                    </button>
+                    <div style={{ fontSize: '0.9rem', color: 'var(--text-light)', lineHeight: '1.6' }}>
+                      We respond within 2 business days.<br/>
+                      Your information is kept strictly confidential.
+                    </div>
+                  </div>
+                </form>
+
               </div>
-            </form>
+            </div>
+
           </div>
         </div>
-      </div>
+      </section>
+
     </div>
   );
 };

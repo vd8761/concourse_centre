@@ -1,105 +1,192 @@
-import React from 'react';
-import Button from '../components/ui/Button';
-import { Check } from 'lucide-react';
+import React, { useState, useEffect } from 'react';
+import { ArrowRight, CheckCircle2, GraduationCap, Building2, Send } from 'lucide-react';
+import HumanVerification from '../components/HumanVerification';
 
 const Apply = () => {
+  const [applicantType, setApplicantType] = useState('student'); // 'student' or 'company'
+  const [formData, setFormData] = useState({
+    firstName: '',
+    lastName: '',
+    email: '',
+    institution: '',
+    linkedin: '',
+    companyName: '',
+    role: ''
+  });
+  const [errors, setErrors] = useState({});
+  const [isSubmitted, setIsSubmitted] = useState(false);
+  const [isVerified, setIsVerified] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="bg-cloud-white min-h-screen">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-        
-        {/* Left Side (Dark) */}
-        <div className="bg-midnight-navy text-white relative overflow-hidden py-20 px-8 lg:px-20 flex flex-col justify-center">
-          <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_right,rgba(47,128,237,0.1)_0,transparent_50%)]"></div>
-          <div className="absolute bottom-0 left-0 w-full h-[300px] bg-gradient-to-t from-electric-blue/10 to-transparent"></div>
-          
-          <div className="relative z-10 max-w-xl mx-auto lg:mx-0">
-            <div className="inline-block px-4 py-2 bg-prestige-gold/20 rounded-full mb-6 border border-prestige-gold/30">
-              <span className="text-prestige-gold font-bold tracking-wider uppercase text-sm">CGIP Admissions Open</span>
-            </div>
-            <h1 className="font-heading font-extrabold text-5xl lg:text-7xl text-white mb-6">Apply for CGIP.</h1>
-            <p className="text-cloud-white opacity-80 text-xl leading-relaxed mb-10">
-              Take the first step towards a global career. Please ensure you meet the <span className="text-prestige-gold font-bold">eligibility criteria</span> before applying.
-            </p>
+    <div style={{ paddingTop: '96px', background: 'var(--light-bg)', minHeight: '100vh' }}>
+      
+      <section style={{ padding: '60px 0', position: 'relative' }}>
+        <div className="container">
+          <div className="grid-2" style={{ gap: '64px', alignItems: 'flex-start' }}>
             
-            <div className="bg-white/5 rounded-2xl p-8 border border-white/10">
-              <h3 className="font-bold text-electric-blue uppercase tracking-wider text-sm mb-6">Eligibility Checklist</h3>
-              <ul className="flex flex-col gap-4">
-                <li className="flex items-center gap-3 text-cloud-white opacity-90">
-                  <Check className="text-verified-emerald flex-shrink-0" size={20} />
-                  <span>Final or Pre-final year standing</span>
-                </li>
-                <li className="flex items-center gap-3 text-cloud-white opacity-90">
-                  <Check className="text-verified-emerald flex-shrink-0" size={20} />
-                  <span>Minimum 60% aggregate or equivalent CGPA</span>
-                </li>
-                <li className="flex items-center gap-3 text-cloud-white opacity-90">
-                  <Check className="text-verified-emerald flex-shrink-0" size={20} />
-                  <span>Clear disciplinary record</span>
-                </li>
-              </ul>
+            {/* Left Side: Context & Trust */}
+            <div className="animate-on-scroll" style={{ position: 'sticky', top: '120px' }}>
+              <h1 style={{ fontSize: '3rem', marginBottom: '24px', letterSpacing: '-0.03em' }}>
+                Join the <br/> <span className="text-gradient-blue">Global Network.</span>
+              </h1>
+              <p className="subtitle" style={{ fontSize: '1.15rem', marginBottom: '40px' }}>
+                Whether you're looking to accelerate your career or your company's projects, you're in the right place.
+              </p>
+              
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '8px' }}>
+                    <CheckCircle2 size={24} color="var(--emerald-green)" style={{ flexShrink: 0 }} />
+                    <h4 style={{ fontSize: '1.1rem', margin: 0 }}>Merit-Based Selection</h4>
+                  </div>
+                  <p style={{ color: 'var(--text-light)', fontSize: '0.95rem', lineHeight: '1.5', paddingLeft: '40px', margin: 0 }}>No placement fees, no bias. Just pure talent matching.</p>
+                </div>
+                
+                <div style={{ display: 'flex', flexDirection: 'column' }}>
+                  <div style={{ display: 'flex', gap: '16px', alignItems: 'center', marginBottom: '8px' }}>
+                    <CheckCircle2 size={24} color="var(--emerald-green)" style={{ flexShrink: 0 }} />
+                    <h4 style={{ fontSize: '1.1rem', margin: 0 }}>Fast-Tracked Process</h4>
+                  </div>
+                  <p style={{ color: 'var(--text-light)', fontSize: '0.95rem', lineHeight: '1.5', paddingLeft: '40px', margin: 0 }}>Hear back within 48 hours of submitting your application.</p>
+                </div>
+              </div>
             </div>
+            
+            {/* Right Side: The Form */}
+            <div className="animate-on-scroll delay-100">
+              <div className="bento-card" style={{ padding: '48px', background: 'var(--white)', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)' }}>
+                
+                {/* Toggle */}
+                <div className="toggle-container">
+                  <button 
+                    onClick={() => setApplicantType('student')}
+                    className={`toggle-btn ${applicantType === 'student' ? 'active' : ''}`}>
+                    <GraduationCap size={18} /> I'm a Student
+                  </button>
+                  <button 
+                    onClick={() => setApplicantType('company')}
+                    className={`toggle-btn ${applicantType === 'company' ? 'active' : ''}`}>
+                    <Building2 size={18} /> I'm a Company
+                  </button>
+                </div>
+                
+                {/* Form Elements */}
+                <form 
+                  noValidate
+                  onSubmit={(e) => {
+                    e.preventDefault();
+                    const newErrors = {};
+                    if (!formData.firstName.trim()) newErrors.firstName = 'First Name is required';
+                    if (!formData.lastName.trim()) newErrors.lastName = 'Last Name is required';
+                    if (!formData.email.trim()) newErrors.email = 'Email Address is required';
+                    else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) newErrors.email = 'Please enter a valid email address';
+                    
+                    if (applicantType === 'student') {
+                      if (!formData.institution.trim()) newErrors.institution = 'Institution / College is required';
+                      if (formData.linkedin && !/^https?:\/\//.test(formData.linkedin)) newErrors.linkedin = 'Please enter a valid URL (e.g. https://linkedin.com/in/...)';
+                    } else {
+                      if (!formData.companyName.trim()) newErrors.companyName = 'Company Name is required';
+                      if (!formData.role.trim()) newErrors.role = 'Role / Title is required';
+                    }
+
+                    if (!isVerified) newErrors.verification = 'Please complete the human verification step';
+                    
+                    setErrors(newErrors);
+                    
+                    if (Object.keys(newErrors).length === 0) {
+                      setIsSubmitted(true);
+                      setTimeout(() => setIsSubmitted(false), 5000);
+                      setFormData({ firstName: '', lastName: '', email: '', institution: '', linkedin: '', companyName: '', role: '' });
+                      setIsVerified(false);
+                    }
+                  }} 
+                  style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}
+                >
+                  {isSubmitted && (
+                    <div style={{ padding: '16px', background: 'rgba(34, 197, 94, 0.1)', color: 'var(--emerald-green)', borderRadius: '8px', border: '1px solid rgba(34, 197, 94, 0.2)', marginBottom: '8px', fontWeight: '500' }}>
+                      Thank you! Your application has been submitted successfully. We will get back to you within 48 hours.
+                    </div>
+                  )}
+
+                  <div className="grid-2" style={{ gap: '20px' }}>
+                    <div className="form-group">
+                      <label className="form-label">First Name <span style={{ color: '#ef4444' }}>*</span></label>
+                      <input type="text" placeholder="John" className={`form-input ${errors.firstName ? 'input-error' : ''}`} value={formData.firstName} onChange={e => { setFormData({...formData, firstName: e.target.value}); if(errors.firstName) setErrors({...errors, firstName: null}) }} />
+                      {errors.firstName && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.firstName}</span>}
+                    </div>
+                    <div className="form-group">
+                      <label className="form-label">Last Name <span style={{ color: '#ef4444' }}>*</span></label>
+                      <input type="text" placeholder="Doe" className={`form-input ${errors.lastName ? 'input-error' : ''}`} value={formData.lastName} onChange={e => { setFormData({...formData, lastName: e.target.value}); if(errors.lastName) setErrors({...errors, lastName: null}) }} />
+                      {errors.lastName && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.lastName}</span>}
+                    </div>
+                  </div>
+                  
+                  <div className="form-group">
+                    <label className="form-label">Email Address <span style={{ color: '#ef4444' }}>*</span></label>
+                    <input type="email" placeholder="john@example.com" className={`form-input ${errors.email ? 'input-error' : ''}`} value={formData.email} onChange={e => { setFormData({...formData, email: e.target.value}); if(errors.email) setErrors({...errors, email: null}) }} />
+                    {errors.email && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.email}</span>}
+                  </div>
+                  
+                  {applicantType === 'student' ? (
+                    <>
+                      <div className="form-group">
+                        <label className="form-label">Institution / College <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" placeholder="Enter your college name" className={`form-input ${errors.institution ? 'input-error' : ''}`} value={formData.institution} onChange={e => { setFormData({...formData, institution: e.target.value}); if(errors.institution) setErrors({...errors, institution: null}) }} />
+                        {errors.institution && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.institution}</span>}
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">LinkedIn Profile URL</label>
+                        <input type="url" placeholder="https://linkedin.com/in/johndoe" className={`form-input ${errors.linkedin ? 'input-error' : ''}`} value={formData.linkedin} onChange={e => { setFormData({...formData, linkedin: e.target.value}); if(errors.linkedin) setErrors({...errors, linkedin: null}) }} />
+                        {errors.linkedin && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.linkedin}</span>}
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="form-group">
+                        <label className="form-label">Company Name <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" placeholder="Enter your company name" className={`form-input ${errors.companyName ? 'input-error' : ''}`} value={formData.companyName} onChange={e => { setFormData({...formData, companyName: e.target.value}); if(errors.companyName) setErrors({...errors, companyName: null}) }} />
+                        {errors.companyName && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.companyName}</span>}
+                      </div>
+                      <div className="form-group">
+                        <label className="form-label">Role / Title <span style={{ color: '#ef4444' }}>*</span></label>
+                        <input type="text" placeholder="e.g. HR Manager, CTO" className={`form-input ${errors.role ? 'input-error' : ''}`} value={formData.role} onChange={e => { setFormData({...formData, role: e.target.value}); if(errors.role) setErrors({...errors, role: null}) }} />
+                        {errors.role && <span style={{ color: '#ef4444', fontSize: '0.85rem', marginTop: '6px', display: 'block' }}>{errors.role}</span>}
+                      </div>
+                    </>
+                  )}
+                  
+                  <HumanVerification onChange={setIsVerified} error={errors.verification} />
+
+                  <button type="submit" className="btn btn-primary glow-primary" style={{ marginTop: '16px', width: '100%', padding: '16px', display: 'flex', justifyContent: 'center', gap: '8px', fontSize: '1.05rem', border: 'none', borderRadius: '8px', fontWeight: '600', cursor: 'pointer' }}>
+                    Submit Application <Send size={18} />
+                  </button>
+                  <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-light)', marginTop: '8px' }}>
+                    By submitting, you agree to our Privacy Policy.
+                  </p>
+                </form>
+
+              </div>
+            </div>
+
           </div>
         </div>
+      </section>
 
-        {/* Right Side (Light Form) */}
-        <div className="bg-white py-20 px-8 lg:px-20 flex flex-col justify-center">
-          <div className="max-w-xl mx-auto lg:mx-0 w-full">
-            <h2 className="font-heading font-extrabold text-3xl lg:text-4xl text-midnight-navy mb-10">Application Form</h2>
-            
-            <form className="flex flex-col gap-8" onSubmit={(e) => e.preventDefault()}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="fullName" className="font-bold text-slate-text text-sm uppercase tracking-wider">Full Name</label>
-                  <input type="text" id="fullName" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="As per official documents" required />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="email" className="font-bold text-slate-text text-sm uppercase tracking-wider">Email Address</label>
-                  <input type="email" id="email" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="University email preferred" required />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="phone" className="font-bold text-slate-text text-sm uppercase tracking-wider">Phone Number</label>
-                  <input type="tel" id="phone" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="+91" required />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="college" className="font-bold text-slate-text text-sm uppercase tracking-wider">College / University</label>
-                  <input type="text" id="college" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="Institution name" required />
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="degree" className="font-bold text-slate-text text-sm uppercase tracking-wider">Degree</label>
-                  <input type="text" id="degree" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="e.g. B.Tech CS" required />
-                </div>
-                <div className="flex flex-col gap-2">
-                  <label htmlFor="cgpa" className="font-bold text-slate-text text-sm uppercase tracking-wider">Current CGPA</label>
-                  <input type="text" id="cgpa" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="e.g. 8.5" required />
-                </div>
-              </div>
-
-              <div className="flex flex-col gap-2 mt-2">
-                <label htmlFor="resume" className="font-bold text-slate-text text-sm uppercase tracking-wider">Resume / Portfolio Link</label>
-                <input type="url" id="resume" className="w-full bg-transparent border-b-2 border-soft-border py-2 text-midnight-navy focus:outline-none focus:border-electric-blue transition-colors placeholder:text-slate-text/30" placeholder="Google Drive / Notion URL" required />
-              </div>
-
-              <div className="flex items-start gap-4 mt-6 p-6 rounded-xl bg-electric-blue/5 border border-electric-blue/10">
-                <input type="checkbox" id="meritConfirm" className="mt-1 w-5 h-5 rounded border-soft-border text-electric-blue focus:ring-electric-blue" required />
-                <label htmlFor="meritConfirm" className="text-sm leading-relaxed text-slate-text opacity-90">
-                  <span className="font-bold text-midnight-navy block mb-1">Merit Confirmation</span>
-                  I understand this programme is entirely merit-based. I confirm all information provided is accurate and verifiable.
-                </label>
-              </div>
-
-              <div className="mt-4">
-                <Button variant="primary" size="lg" className="w-full py-4 text-lg shadow-lg shadow-electric-blue/20" type="submit">Submit Application</Button>
-              </div>
-            </form>
-          </div>
-        </div>
-      </div>
     </div>
   );
 };

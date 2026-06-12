@@ -1,78 +1,103 @@
-import React from 'react';
-import Card from '../components/ui/Card';
-import { Shield, Target, Navigation } from 'lucide-react';
+import React, { useEffect } from 'react';
+import { Target, Compass, Users, ArrowRight, Award } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const About = () => {
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('is-visible');
+        }
+      });
+    }, { threshold: 0.1 });
+
+    const elements = document.querySelectorAll('.animate-on-scroll');
+    elements.forEach((el) => observer.observe(el));
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <div className="bg-cloud-white min-h-screen">
-      <section className="bg-midnight-navy py-20 lg:py-32 relative overflow-hidden">
-        <div className="absolute top-0 right-0 w-[800px] h-[800px] bg-electric-blue/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3"></div>
-        <div className="container mx-auto px-6 relative z-10">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-center">
-            <div className="text-left">
-              <h1 className="font-heading font-extrabold text-4xl lg:text-5xl lg:leading-tight text-white mb-6">About Us</h1>
-              <p className="text-cloud-white opacity-80 text-lg lg:text-xl leading-relaxed max-w-xl">
-                Learn about our mission to bridge the gap between Indian talent and global opportunity through structured remote programmes.
+    <main style={{ backgroundColor: 'var(--white)' }}>
+      
+      {/* Hero Section */}
+      <section style={{ paddingTop: '136px', paddingBottom: '40px', position: 'relative', overflow: 'hidden' }}>
+        <div className="mesh-bg" style={{ opacity: 0.5 }}></div>
+        <div className="container" style={{ position: 'relative', zIndex: 2 }}>
+          <div style={{ maxWidth: '800px', margin: '0 auto', textAlign: 'center' }}>
+            <span className="badge animate-on-scroll" style={{ display: 'inline-flex', marginBottom: '24px' }}>
+              <Compass size={16} /> <span>Our Story</span>
+            </span>
+            <h1 className="animate-on-scroll" style={{ fontSize: '3.5rem', marginBottom: '24px', letterSpacing: '-0.03em' }}>
+              Bridging the gap between <br/> <span className="text-gradient-blue" style={{ paddingBottom: '10px' }}>Talent and Opportunity.</span>
+            </h1>
+            <p className="subtitle animate-on-scroll" style={{ fontSize: '1.25rem', marginBottom: '40px' }}>
+              Touchmark Concourse Centre was founded on a simple premise: India has an abundance of world-class student talent, but geographical borders shouldn't limit their potential.
+            </p>
+          </div>
+        </div>
+      </section>
+
+      {/* Mission & Vision */}
+      <section style={{ padding: '60px 0', background: 'var(--white)' }}>
+        <div className="container">
+          <div className="grid-2 animate-on-scroll" style={{ gap: '32px' }}>
+            <div className="bento-card" style={{ padding: '48px', borderTop: '4px solid var(--royal-blue)' }}>
+              <Target size={32} color="var(--royal-blue)" style={{ marginBottom: '24px' }} />
+              <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>Our Mission</h2>
+              <p style={{ color: 'var(--text-light)', fontSize: '1.1rem', lineHeight: '1.7' }}>
+                To democratize access to global career opportunities for Indian students by building verified, merit-based pathways to international remote internships and early-career projects.
               </p>
             </div>
-            <div className="relative">
-              <div className="absolute inset-0 bg-gradient-to-tr from-electric-blue/20 to-transparent rounded-2xl"></div>
-              <img src="/images/about_page.png" alt="Abstract talent bridge" className="relative z-10 rounded-2xl border border-white/10 shadow-2xl w-full object-cover" />
+            
+            <div className="bento-card" style={{ padding: '48px', borderTop: '4px solid var(--emerald-green)' }}>
+              <Compass size={32} color="var(--emerald-green)" style={{ marginBottom: '24px' }} />
+              <h2 style={{ fontSize: '2rem', marginBottom: '16px' }}>Our Vision</h2>
+              <p style={{ color: 'var(--text-light)', fontSize: '1.1rem', lineHeight: '1.7' }}>
+                To become the defacto bridge connecting global enterprise demands with the vast, untapped potential of the Indian higher-education ecosystem.
+              </p>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="py-20 lg:py-32">
-        <div className="container mx-auto px-6">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 items-center">
-            <div>
-              <h2 className="font-heading font-extrabold text-3xl lg:text-4xl text-midnight-navy mb-8">Our Purpose</h2>
-              <div className="space-y-6 text-slate-text leading-relaxed">
-                <p>
-                  Touchmark Concourse Centre, an initiative of Touchmark Descience Pvt Ltd, was founded with a singular focus: to democratize access to global professional experiences for merit-driven Indian youth.
-                </p>
-                <p>
-                  We believe that geographic location should not dictate a student's career trajectory. By partnering with international companies and building structured delivery models, we create legitimate pathways for students to work on real-world global projects.
-                </p>
-                <p>
-                  Our merit-first philosophy ensures that opportunities are earned by those who demonstrate drive, capability, and professionalism.
+      {/* Why Choose Us Grid */}
+      <section style={{ padding: '80px 0', background: 'var(--light-bg)' }}>
+        <div className="container">
+          <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 64px' }} className="animate-on-scroll">
+            <h2 style={{ fontSize: '2.5rem', marginBottom: '16px' }}>The Touchmark Difference</h2>
+            <p className="subtitle">We aren't a typical placement agency. We are an ecosystem builder.</p>
+          </div>
+
+          <div className="bento-grid animate-on-scroll">
+            {/* Wide Card */}
+            <div className="bento-card bento-wide" style={{ background: 'linear-gradient(135deg, var(--deep-navy) 0%, #1e3a8a 100%)', border: 'none', boxShadow: '0 20px 40px -12px rgba(10, 37, 64, 0.4)', padding: '56px 48px', display: 'flex', flexDirection: 'column', justifyContent: 'center', position: 'relative', overflow: 'hidden' }}>
+              <Award size={320} color="rgba(255,255,255,0.04)" strokeWidth={1} style={{ position: 'absolute', right: '-40px', bottom: '-40px', transform: 'rotate(-15deg)', pointerEvents: 'none' }} />
+              <div style={{ position: 'relative', zIndex: 2 }}>
+                <h3 style={{ fontSize: '2.5rem', fontWeight: '800', marginBottom: '24px', color: 'white', letterSpacing: '-0.02em', lineHeight: '1.2' }}>100% Meritocratic</h3>
+                <p style={{ color: 'rgba(255,255,255,0.95)', fontSize: '1.25rem', lineHeight: '1.6', margin: 0, fontWeight: '400' }}>
+                  We fundamentally believe that talent is equally distributed, but opportunity is not. We never charge students for placements. If you have the skill, you earn the spot. Period.
                 </p>
               </div>
             </div>
-            <div className="grid gap-6">
-              <Card hoverEffect={true} className="flex gap-6 items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-electric-blue/10 flex items-center justify-center">
-                  <Target size={24} className="text-electric-blue" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-midnight-navy text-xl mb-2">Merit-First Philosophy</h3>
-                  <p className="text-slate-text opacity-80 text-sm leading-relaxed">We do not charge students for placement. Selection is based purely on technical capability and drive.</p>
-                </div>
-              </Card>
-              <Card hoverEffect={true} className="flex gap-6 items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-verified-emerald/10 flex items-center justify-center">
-                  <Shield size={24} className="text-verified-emerald" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-midnight-navy text-xl mb-2">Structured Delivery</h3>
-                  <p className="text-slate-text opacity-80 text-sm leading-relaxed">Every programme has defined learning outcomes, weekly tracking, and verified certification.</p>
-                </div>
-              </Card>
-              <Card hoverEffect={true} className="flex gap-6 items-start">
-                <div className="flex-shrink-0 w-12 h-12 rounded-lg bg-prestige-gold/10 flex items-center justify-center">
-                  <Navigation size={24} className="text-prestige-gold" />
-                </div>
-                <div>
-                  <h3 className="font-bold text-midnight-navy text-xl mb-2">Global Network</h3>
-                  <p className="text-slate-text opacity-80 text-sm leading-relaxed">Connecting talent to companies in Singapore, Dubai, Mauritius, Japan, and beyond.</p>
-                </div>
-              </Card>
+
+            <div className="bento-card bento-square">
+              <Users size={32} color="var(--royal-blue)" style={{ marginBottom: '16px' }} />
+              <h3 style={{ fontSize: '1.25rem', marginBottom: '12px' }}>Institution Aligned</h3>
+              <p style={{ color: 'var(--text-light)', fontSize: '0.95rem', lineHeight: '1.5' }}>We work with colleges, not against them, integrating into their existing placement cells.</p>
+            </div>
+
+            <div className="bento-card bento-square">
+              <Target size={32} color="var(--royal-blue)" style={{ marginBottom: '16px' }} />
+              <h3 style={{ fontSize: '1.25rem', marginBottom: '12px' }}>Zero-Friction B2B</h3>
+              <p style={{ color: 'var(--text-light)', fontSize: '0.95rem', lineHeight: '1.5' }}>For global companies, we handle all the administrative, tracking, and certification overhead.</p>
             </div>
           </div>
         </div>
       </section>
-    </div>
+
+    </main>
   );
 };
 
