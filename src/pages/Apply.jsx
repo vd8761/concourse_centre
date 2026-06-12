@@ -73,20 +73,6 @@ const Apply = () => {
             <div className="animate-on-scroll delay-100">
               <div className="bento-card" style={{ padding: '48px', background: 'var(--white)', boxShadow: '0 20px 40px -10px rgba(0,0,0,0.1)' }}>
                 
-                {/* Toggle */}
-                <div className="toggle-container">
-                  <button 
-                    onClick={() => setApplicantType('student')}
-                    className={`toggle-btn ${applicantType === 'student' ? 'active' : ''}`}>
-                    <GraduationCap size={18} /> I'm a Student
-                  </button>
-                  <button 
-                    onClick={() => setApplicantType('company')}
-                    className={`toggle-btn ${applicantType === 'company' ? 'active' : ''}`}>
-                    <Building2 size={18} /> I'm a Company
-                  </button>
-                </div>
-                
                 {/* Form Elements */}
                 {isSubmitted ? (
                   <div style={{ padding: '60px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '400px' }}>
@@ -102,8 +88,27 @@ const Apply = () => {
                     </button>
                   </div>
                 ) : (
-                <form 
-                  noValidate
+                <div style={{ width: '100%' }}>
+                  {/* Toggle */}
+                  <div className="toggle-container">
+                    <button 
+                      onClick={() => setApplicantType('student')}
+                      className={`toggle-btn ${applicantType === 'student' ? 'active' : ''}`}>
+                      <GraduationCap size={18} /> I'm a Student
+                    </button>
+                    <button 
+                      onClick={() => setApplicantType('company')}
+                      className={`toggle-btn ${applicantType === 'company' ? 'active' : ''}`}>
+                      <Building2 size={18} /> I'm a Company
+                    </button>
+                  </div>
+
+                  <div style={{ marginBottom: '32px' }}>
+                    <h3 style={{ fontSize: '1.5rem', marginBottom: '8px' }}>Application Form</h3>
+                    <p style={{ color: 'var(--text-light)' }}>Please fill out all required fields carefully.</p>
+                  </div>
+                  <form 
+                    noValidate
                   onSubmit={(e) => {
                     e.preventDefault();
                     const newErrors = {};
@@ -223,7 +228,8 @@ const Apply = () => {
                   <p style={{ textAlign: 'center', fontSize: '0.85rem', color: 'var(--text-light)', marginTop: '8px' }}>
                     By submitting, you agree to our Privacy Policy.
                   </p>
-                </form>
+                  </form>
+                </div>
                 )}
 
               </div>

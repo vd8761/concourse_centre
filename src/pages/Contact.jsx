@@ -87,8 +87,6 @@ const Contact = () => {
             {/* Direct Message Form */}
             <div className="animate-on-scroll delay-100">
               <div className="bento-card" style={{ padding: '48px', height: '100%', display: 'flex', flexDirection: 'column', justifyContent: 'center' }}>
-                <h3 style={{ fontSize: '1.5rem', marginBottom: '32px' }}>Send a Message</h3>
-                
                 {isSubmitted ? (
                   <div style={{ padding: '60px 20px', display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center', textAlign: 'center', minHeight: '400px' }}>
                     <div style={{ width: '80px', height: '80px', background: 'rgba(34, 197, 94, 0.1)', color: '#22c55e', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: '24px' }}>
@@ -103,8 +101,10 @@ const Contact = () => {
                     </button>
                   </div>
                 ) : (
-                <form 
-                  noValidate 
+                <div style={{ width: '100%' }}>
+                  <h3 style={{ fontSize: '1.5rem', marginBottom: '32px' }}>Send a Message</h3>
+                  <form 
+                    noValidate 
                   onSubmit={(e) => {
                     e.preventDefault();
                     const newErrors = {};
@@ -139,7 +139,7 @@ const Contact = () => {
                         headers: { 'Content-Type': 'application/json' },
                         body: JSON.stringify({
                           formType: 'contact',
-                          formData,
+                          formData: { ...formData, phone: `${countryCode} ${formData.phone}` },
                           turnstileToken
                         })
                       })
@@ -280,6 +280,7 @@ const Contact = () => {
                     </div>
                   </div>
                 </form>
+                </div>
                 )}
               </div>
             </div>

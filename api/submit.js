@@ -50,10 +50,17 @@ export default async function handler(req, res) {
   for (const [key, value] of Object.entries(formData)) {
     // Capitalize key
     const formattedKey = key.charAt(0).toUpperCase() + key.slice(1).replace(/([A-Z])/g, ' $1');
+    let formattedValue = value || 'N/A';
+    
+    // Capitalize specific fields like applicantType
+    if (key === 'applicantType' && typeof value === 'string') {
+      formattedValue = value.charAt(0).toUpperCase() + value.slice(1);
+    }
+    
     detailsHtml += `
       <tr>
         <td style="padding: 14px 0; border-bottom: 1px solid #e2e8f0; font-weight: 600; color: #64748b; width: 35%; align: left; font-size: 15px;">${formattedKey}</td>
-        <td style="padding: 14px 0; border-bottom: 1px solid #e2e8f0; color: #0f172a; font-size: 15px;">${value || 'N/A'}</td>
+        <td style="padding: 14px 0; border-bottom: 1px solid #e2e8f0; color: #0f172a; font-size: 15px;">${formattedValue}</td>
       </tr>
     `;
   }
