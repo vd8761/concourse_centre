@@ -1150,6 +1150,22 @@ select.form-input {
 }
 
 /* Caption text slides in from the right with an inertia-style settle */
+/* Live-location dot to the left of the carousel caption */
+.carousel-caption-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--emerald-green);
+  flex-shrink: 0;
+  box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.7);
+  animation: caption-dot-pulse 2.2s ease-out infinite;
+}
+@keyframes caption-dot-pulse {
+  0% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0.6); }
+  70% { box-shadow: 0 0 0 5px rgba(16, 185, 129, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(16, 185, 129, 0); }
+}
+
 .carousel-caption-text {
   animation: caption-slide-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
 }

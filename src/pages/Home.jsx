@@ -86,7 +86,8 @@ const Home = () => {
                 className={`carousel-image ${idx === currentImageIndex ? 'active' : ''}`}
               />
             ))}
-            <div style={{ position: 'absolute', bottom: '24px', right: '24px', zIndex: 10, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', color: 'white', padding: '8px 16px', borderRadius: '50px', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '0.05em', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', bottom: '24px', left: '24px', zIndex: 10, display: 'flex', alignItems: 'center', gap: '9px', background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', WebkitBackdropFilter: 'blur(10px)', color: 'white', padding: '8px 16px', borderRadius: '50px', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '0.05em', overflow: 'hidden' }}>
+              <span className="carousel-caption-dot" aria-hidden="true" />
               <span style={{ position: 'relative', display: 'inline-block' }}>
                 <span key={currentImageIndex} className="carousel-caption-text" style={{ display: 'inline-block' }}>
                   {heroImages[currentImageIndex].name}
