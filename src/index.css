@@ -589,6 +589,24 @@ ul {
   .bento-card:not(.bento-full) { padding: 20px !important; }
 }
 
+/* Let grid/flex columns shrink below their content width so fixed-width
+   children (e.g. the Cloudflare Turnstile widget) can't force overflow */
+.grid-2 > *, .grid-3 > *, .grid-4 > *, .grid-4-8 > * {
+  min-width: 0;
+}
+
+/* Turnstile renders at a fixed 300px; scale it to fit very narrow screens */
+.turnstile-wrapper {
+  max-width: 100%;
+  overflow: hidden;
+}
+@media (max-width: 360px) {
+  .turnstile-wrapper {
+    transform: scale(0.85);
+    transform-origin: left center;
+  }
+}
+
 /* Navbar Mobile Menu Styles */
 .mobile-menu-btn {
   display: none;
@@ -647,6 +665,62 @@ ul {
   .mobile-menu-overlay.open {
     opacity: 1;
     visibility: visible;
+  }
+}
+
+/* Close button lives inside the menu, only shown in the small-screen pop-up */
+.popup-close-btn {
+  display: none;
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 4px;
+  color: var(--deep-navy);
+  z-index: 2;
+}
+
+/* On small screens, show the menu as a centered pop-up instead of a sidebar */
+@media (max-width: 768px) {
+  .popup-close-btn {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  /* Hide the outside hamburger/X button while the pop-up is open */
+  .mobile-menu-btn.menu-open {
+    display: none;
+  }
+  .nav-links-container {
+    top: 50%;
+    right: 50%;
+    transform: translate(50%, -50%) scale(0.95);
+    width: calc(100% - 48px);
+    max-width: 360px;
+    height: auto;
+    max-height: calc(100vh - 48px);
+    overflow-y: auto;
+    border-radius: 16px;
+    padding: 56px 24px 32px;
+    justify-content: flex-start !important;
+    align-items: stretch !important;
+    text-align: center;
+    box-shadow: 0 20px 60px rgba(0,0,0,0.25);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, transform 0.3s ease, visibility 0.3s ease;
+  }
+  .nav-links-container.open {
+    right: 50%;
+    transform: translate(50%, -50%) scale(1);
+    opacity: 1;
+    visibility: visible;
+  }
+  .nav-links-container .nav-link {
+    margin-bottom: 8px;
+    align-self: center;
   }
 }
 
@@ -926,4 +1000,44 @@ select.form-input {
   opacity: 1;
   transform: scale(1.05); /* Keep slightly scaled to hide corner watermarks */
   z-index: 1;
+}
+
+/* Caption text slides in from the right with an inertia-style settle */
+.carousel-caption-text {
+  animation: caption-slide-in 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes caption-slide-in {
+  0% {
+    opacity: 0;
+    transform: translateX(110%);
+    filter: blur(4px);
+  }
+  60% {
+    opacity: 1;
+    filter: blur(0);
+  }
+  100% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+}
+
+/* Outgoing caption coasts out to the left */
+.carousel-caption-text-out {
+  animation: caption-slide-out 0.9s cubic-bezier(0.16, 1, 0.3, 1) both;
+}
+
+@keyframes caption-slide-out {
+  0% {
+    opacity: 1;
+    transform: translateX(0);
+    filter: blur(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateX(-110%);
+    filter: blur(4px);
+  }
 }

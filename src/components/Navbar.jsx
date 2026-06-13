@@ -29,6 +29,14 @@ const Navbar = () => {
     setMobileMenuOpen(false);
   }, [location.pathname]);
 
+  // Lock background scroll while the mobile menu is open
+  useEffect(() => {
+    document.body.style.overflow = mobileMenuOpen ? 'hidden' : '';
+    return () => {
+      document.body.style.overflow = '';
+    };
+  }, [mobileMenuOpen]);
+
   return (
     <header className={useLightStyle ? 'navbar-dark-bg' : ''} style={{ 
       position: 'fixed', 
@@ -60,6 +68,13 @@ const Navbar = () => {
         <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}></div>
         
         <nav className={`nav-links-container ${mobileMenuOpen ? 'open' : ''}`} style={{ display: 'flex', gap: '36px', alignItems: 'center', fontWeight: '500', fontSize: '0.95rem', letterSpacing: '-0.01em' }}>
+          <button
+            className="popup-close-btn"
+            onClick={() => setMobileMenuOpen(false)}
+            aria-label="Close menu"
+          >
+            <X size={24} />
+          </button>
           <NavLink to="/about" className="nav-link" onClick={() => setMobileMenuOpen(false)}>About</NavLink>
           <NavLink to="/programmes" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Initiatives</NavLink>
           <NavLink to="/cgip" className="nav-link" onClick={() => setMobileMenuOpen(false)}>CGIP</NavLink>
@@ -83,8 +98,8 @@ const Navbar = () => {
           </Link>
         </div>
 
-        <button 
-          className="mobile-menu-btn" 
+        <button
+          className={`mobile-menu-btn ${mobileMenuOpen ? 'menu-open' : ''}`}
           onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
           aria-label="Toggle menu"
           style={{ color: useLightStyle ? 'var(--white)' : 'var(--deep-navy)' }}

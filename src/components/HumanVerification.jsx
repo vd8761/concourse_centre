@@ -3,8 +3,8 @@ import { Turnstile } from '@marsidev/react-turnstile';
 
 const HumanVerification = ({ onChange, error }) => {
   return (
-    <div className="form-group" style={{ marginBottom: '0' }}>
-      <div style={{ 
+    <div className="form-group turnstile-wrapper" style={{ marginBottom: '0' }}>
+      <div style={{
         border: error ? '1px solid #ef4444' : 'none', 
         borderRadius: '8px',
         padding: error ? '2px' : '0',

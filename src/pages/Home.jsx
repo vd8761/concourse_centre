@@ -16,10 +16,14 @@ const heroImages = [
 
 const Home = () => {
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  const [prevImageIndex, setPrevImageIndex] = useState(null);
 
   useEffect(() => {
     const interval = setInterval(() => {
-      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+      setCurrentImageIndex((prev) => {
+        setPrevImageIndex(prev);
+        return (prev + 1) % heroImages.length;
+      });
     }, 5000);
     return () => clearInterval(interval);
   }, []);
@@ -82,8 +86,17 @@ const Home = () => {
                 className={`carousel-image ${idx === currentImageIndex ? 'active' : ''}`}
               />
             ))}
-            <div style={{ position: 'absolute', bottom: '24px', right: '24px', zIndex: 10, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', color: 'white', padding: '8px 16px', borderRadius: '50px', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '0.05em' }}>
-              {heroImages[currentImageIndex].name}
+            <div style={{ position: 'absolute', bottom: '24px', right: '24px', zIndex: 10, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', color: 'white', padding: '8px 16px', borderRadius: '50px', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '0.05em', overflow: 'hidden' }}>
+              <span style={{ position: 'relative', display: 'inline-block' }}>
+                <span key={currentImageIndex} className="carousel-caption-text" style={{ display: 'inline-block' }}>
+                  {heroImages[currentImageIndex].name}
+                </span>
+                {prevImageIndex !== null && (
+                  <span key={`prev-${prevImageIndex}`} className="carousel-caption-text-out" style={{ position: 'absolute', top: 0, left: 0, whiteSpace: 'nowrap' }}>
+                    {heroImages[prevImageIndex].name}
+                  </span>
+                )}
+              </span>
             </div>
           </div>
         </div>
