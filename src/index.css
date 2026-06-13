@@ -1129,6 +1129,16 @@ select.form-input {
   }
 }
  
+ /* On narrow screens the hero carousel stacks full-width; its fixed 540px
+   height makes it taller than it is wide (portrait). Switch to a landscape
+   aspect ratio so the landscape/square images sit naturally. */
+@media (max-width: 768px) {
+  .hero-carousel {
+    height: auto !important;
+    aspect-ratio: 16 / 9;
+  }
+}
+
  /* Carousel Image Transitions */
 .carousel-image {
   position: absolute;
