@@ -33,6 +33,12 @@ html, body {
   position: relative;
 }
 
+#root {
+  overflow-x: hidden;
+  width: 100%;
+  position: relative;
+}
+
 /* Typography Polish */
 h1, h2, h3, h4, h5, h6 {
   font-family: 'Outfit', sans-serif;
@@ -121,6 +127,7 @@ ul {
   font-family: 'Inter', sans-serif;
   white-space: normal; /* Changed from nowrap to allow long buttons to wrap on mobile without causing horizontal overflow */
   text-align: center;
+  max-width: 100%;
 }
 
 .btn-primary {
