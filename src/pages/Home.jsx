@@ -435,8 +435,8 @@ const Home = () => {
 
       {/* For Companies (Full Bleed Background) */}
       <section className="py-32 bg-overlay-navy" style={{ backgroundImage: 'url(/images/corporate_bg.png)', backgroundSize: 'cover', backgroundPosition: 'center' }}>
-         <div className="container" style={{ display: 'flex', justifyContent: 'flex-end' }}>
-            <div style={{ maxWidth: '600px' }}>
+         <div className="container">
+            <div style={{ maxWidth: '600px', marginLeft: 'auto' }}>
                <div className="badge badge-solid mb-4">For Companies</div>
                <h3 style={{ fontSize: '3rem', marginBottom: '24px', lineHeight: '1.1' }}>Host International Interns.<br/>Zero Cost. Real Output.</h3>
                <p style={{ color: 'rgba(255,255,255,0.8)', marginBottom: '32px', fontSize: '1.125rem' }}>

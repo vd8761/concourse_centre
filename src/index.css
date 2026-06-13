@@ -119,7 +119,8 @@ ul {
   transition: all 0.2s ease;
   border: none;
   font-family: 'Inter', sans-serif;
-  white-space: nowrap;
+  white-space: normal; /* Changed from nowrap to allow long buttons to wrap on mobile without causing horizontal overflow */
+  text-align: center;
 }
 
 .btn-primary {
@@ -573,12 +574,12 @@ ul {
   .py-16 { padding-top: 2rem; padding-bottom: 2rem; }
   .overlap-container { margin-top: 0; }
   .grid-2, .grid-3, .grid-4, .grid-4-8, .bento-grid { gap: 20px; }
-  .bento-card { padding: 24px !important; }
+  .bento-card:not(.bento-full) { padding: 24px !important; }
 }
 
 @media (max-width: 480px) {
   h1 { font-size: 2rem !important; }
-  .bento-card { padding: 20px !important; }
+  .bento-card:not(.bento-full) { padding: 20px !important; }
 }
 
 /* Navbar Mobile Menu Styles */
