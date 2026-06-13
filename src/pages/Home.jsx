@@ -35,7 +35,7 @@ const Home = () => {
         <div className="container grid-2" style={{ alignItems: 'center' }}>
           <div>
             <div className="badge badge-premium mb-6 animate-on-scroll">Touchmark Concourse Centre</div>
-            <h1 className="text-gradient-blue animate-on-scroll delay-100" style={{ fontSize: '4rem', marginBottom: '16px', paddingBottom: '8px', lineHeight: '1.1', letterSpacing: '-0.03em' }}>
+            <h1 className="text-gradient-blue animate-on-scroll delay-100" style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)', marginBottom: '16px', paddingBottom: '8px', lineHeight: '1.1', letterSpacing: '-0.03em' }}>
               India's Global<br />Talent Bridge
             </h1>
             <h2 className="animate-on-scroll delay-200" style={{ fontSize: '1.25rem', fontWeight: '500', color: 'var(--slate-text)', marginBottom: '32px', maxWidth: '500px', lineHeight: '1.5' }}>
@@ -44,7 +44,7 @@ const Home = () => {
             <p className="mb-8 animate-on-scroll delay-200" style={{ fontSize: '1.125rem', color: 'var(--slate-text)' }}>
               Touchmark Concourse Centre runs merit-based international programmes that place Indian students and professionals inside global companies - building real skills, real experience, and real careers.
             </p>
-            <div className="animate-on-scroll delay-300" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
+            <div className="animate-on-scroll delay-300 hero-buttons" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
               <Link to="/programmes" className="btn btn-primary glow-primary">
                 Explore Our Programmes <ArrowRight size={18} className="btn-icon" />
               </Link>
@@ -63,8 +63,8 @@ const Home = () => {
       {/* Trust Metrics Overlap Section */}
       <section className="overlap-container mb-24 animate-on-scroll delay-300">
         <div className="container">
-          <div className="glass-card" style={{ padding: '48px 40px', borderRadius: '16px' }}>
-            <div className="grid-3" style={{ gridTemplateColumns: 'repeat(4, 1fr)', gap: '24px' }}>
+          <div className="glass-card bento-content-pad" style={{ borderRadius: '16px' }}>
+            <div className="grid-4" style={{ gap: '24px' }}>
               <div className="text-center">
                 <h3 className="text-gradient-blue" style={{ fontSize: '3.5rem', marginBottom: '4px', letterSpacing: '-0.02em' }}>25<span style={{ color: 'var(--royal-blue)' }}>+</span></h3>
                 <p style={{ fontWeight: '700', color: 'var(--slate-text)', fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Global Partner Companies</p>
@@ -120,7 +120,7 @@ const Home = () => {
                   "
                </div>
                
-               <blockquote style={{ fontSize: '2.5rem', fontWeight: '500', lineHeight: '1.4', margin: '0' }}>
+               <blockquote style={{ fontSize: 'clamp(1.5rem, 6vw, 2.5rem)', fontWeight: '500', lineHeight: '1.4', margin: '0' }}>
                   <span className="text-gradient-light">"We don't just place students. We create the infrastructure that makes international experience accessible to any merit-worthy student in India - regardless of institution tier or geography."</span>
                </blockquote>
                
@@ -184,7 +184,7 @@ const Home = () => {
                
                {/* Full Width 4x1 */}
                <div className="bento-card bento-full" style={{ background: 'linear-gradient(90deg, var(--deep-navy) 0%, #1e293b 100%)', color: 'var(--white)', border: 'none', padding: '0', gap: '0', alignItems: 'stretch' }}>
-                  <div style={{ padding: '48px', flex: '1', position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
+                  <div className="bento-content-pad" style={{ flex: '1', position: 'relative', zIndex: 2, display: 'flex', flexDirection: 'column', justifyContent: 'center', alignItems: 'flex-start' }}>
                      <div className="badge mb-4" style={{ background: 'rgba(255,255,255,0.1)', color: 'var(--white)', border: '1px solid rgba(255,255,255,0.2)', padding: '6px 16px' }}>Operations</div>
                      <h3 style={{ fontSize: '2rem', marginBottom: '16px', color: 'var(--white)' }}>Structured Programme Delivery</h3>
                      <p style={{ fontSize: '1.125rem', color: 'rgba(255,255,255,0.7)', maxWidth: '500px' }}>
@@ -195,7 +195,7 @@ const Home = () => {
                      {/* Abstract decorative graphic */}
                      <div style={{ position: 'absolute', right: '-10%', top: '-50%', width: '400px', height: '400px', background: 'radial-gradient(circle, rgba(37,99,235,0.5) 0%, transparent 70%)', filter: 'blur(40px)', zIndex: 0 }}></div>
                      
-                     <div style={{ padding: '48px 48px', background: 'rgba(255, 255, 255, 0.03)', backdropFilter: 'blur(20px)', borderLeft: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', minWidth: '350px', position: 'relative', zIndex: 1 }}>
+                     <div className="bento-content-pad" style={{ background: 'rgba(255, 255, 255, 0.03)', backdropFilter: 'blur(20px)', borderLeft: '1px solid rgba(255,255,255,0.05)', display: 'flex', flexDirection: 'column', justifyContent: 'center', width: '100%', position: 'relative', zIndex: 1 }}>
                         <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
                           <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'var(--royal-blue)', display: 'flex', alignItems: 'center', justifyContent: 'center', boxShadow: '0 8px 16px rgba(37, 99, 235, 0.3)' }}>
                             <ClipboardList size={24} color="var(--white)" />
@@ -233,17 +233,34 @@ const Home = () => {
             </p>
           </div>
           
-          <div className="grid-3 mb-12">
-            {/* CGIP - Visually Dominant (Spans 2 columns) */}
-            <div className="card-flagship animate-on-scroll delay-100" style={{ gridColumn: 'span 2' }}>
+          {/* Hero Bento Section - 50/50 Split for balanced heights on all screens */}
+          <div className="grid-2 mb-8">
+            {/* Left Column: CGIP - 50% width on desktop */}
+            <div className="card-flagship animate-on-scroll delay-100" style={{ backgroundImage: 'linear-gradient(135deg, rgba(15, 23, 42, 0.9) 0%, rgba(30, 58, 138, 0.95) 100%), url("https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80")', backgroundSize: 'cover', backgroundPosition: 'center', justifyContent: 'center', gap: '32px' }}>
               <div>
                 <div className="badge mb-4" style={{ backgroundColor: 'rgba(255,255,255,0.1)', color: 'var(--white)', border: '1px solid rgba(255,255,255,0.2)', padding: '6px 16px' }}>Flagship</div>
-                <h3 style={{ fontSize: '2rem', marginBottom: '16px' }}>Concourse Global Internship Programme</h3>
-                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '32px', maxWidth: '600px' }}>
-                  Our flagship initiative. Merit-selected Indian engineering students placed in remote international internships with companies in Singapore, Dubai, Mauritius, Japan and beyond. 6-8 weeks. Real projects. Verified letter.
+                <h3 style={{ fontSize: '2rem', marginBottom: '16px', color: 'var(--white)' }}>Concourse Global Internship Programme</h3>
+                <p style={{ color: 'rgba(255,255,255,0.8)', fontSize: '1.125rem', marginBottom: '24px', maxWidth: '600px' }}>
+                  Our flagship initiative. Merit-selected Indian engineering students placed in remote international internships with companies across the globe. 6-8 weeks. Real projects. Verified letter.
                 </p>
+                
+                {/* Visual filler to remove empty space */}
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px' }}>
+                  <span style={{ border: '1px solid rgba(255,255,255,0.15)', borderRadius: '30px', padding: '6px 16px', color: 'white', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <img src="https://flagcdn.com/w20/sg.png" width="16" alt="Singapore flag" style={{ borderRadius: '2px' }} /> Singapore
+                  </span>
+                  <span style={{ border: '1px solid rgba(255,255,255,0.15)', borderRadius: '30px', padding: '6px 16px', color: 'white', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <img src="https://flagcdn.com/w20/ae.png" width="16" alt="Dubai flag" style={{ borderRadius: '2px' }} /> Dubai, UAE
+                  </span>
+                  <span style={{ border: '1px solid rgba(255,255,255,0.15)', borderRadius: '30px', padding: '6px 16px', color: 'white', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <img src="https://flagcdn.com/w20/mu.png" width="16" alt="Mauritius flag" style={{ borderRadius: '2px' }} /> Mauritius
+                  </span>
+                  <span style={{ border: '1px solid rgba(255,255,255,0.15)', borderRadius: '30px', padding: '6px 16px', color: 'white', background: 'rgba(255,255,255,0.05)', fontSize: '0.85rem', display: 'flex', alignItems: 'center', gap: '8px' }}>
+                    <img src="https://flagcdn.com/w20/jp.png" width="16" alt="Japan flag" style={{ borderRadius: '2px' }} /> Japan
+                  </span>
+                </div>
               </div>
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end' }}>
+              <div className="flagship-action" style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-end', gap: '16px' }}>
                  <Link to="/cgip" className="btn btn-primary" style={{ backgroundColor: 'var(--white)', color: 'var(--deep-navy)' }}>View Programme Details <ArrowRight size={18} className="btn-icon" /></Link>
                  <div style={{ textAlign: 'right' }}>
                     <div style={{ fontSize: '0.875rem', textTransform: 'uppercase', letterSpacing: '0.05em', color: 'var(--emerald-green)', fontWeight: '700', marginBottom: '4px' }}>● Active</div>
@@ -252,32 +269,49 @@ const Home = () => {
               </div>
             </div>
             
-            {/* Institution Partnership */}
-            <div className="card-editorial glass-card animate-on-scroll delay-200" style={{ borderColor: 'var(--royal-blue)' }}>
-              <div className="icon-box"><Handshake size={24} /></div>
-              <div className="badge badge-outline mb-4" style={{ alignSelf: 'flex-start' }}>Open for MOUs</div>
-              <h3 style={{ fontSize: '1.25rem', marginBottom: '16px' }}>Concourse Institution Partnership Programme</h3>
-              <p style={{ color: 'var(--slate-text)', fontSize: '0.95rem', flexGrow: 1, marginBottom: '24px' }}>
-                A formal MOU-based partnership framework for colleges and universities to integrate Touchmark Concourse Centre programmes into their placement and industry connect ecosystem.
-              </p>
-              <Link to="/institutions" style={{ fontWeight: '600', color: 'var(--royal-blue)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>Partner with us <ArrowRight size={16} /></Link>
-            </div>
+            {/* Right Column: 2 Featured Programmes - 50% width on desktop */}
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
+              {/* Institution Partnership */}
+              <div className="card-editorial glass-card animate-on-scroll delay-200" style={{ borderColor: 'var(--royal-blue)', flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div className="icon-box"><Handshake size={24} /></div>
+                <div className="badge badge-outline mb-4" style={{ alignSelf: 'flex-start' }}>Open for MOUs</div>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '16px' }}>Concourse Institution Partnership Programme</h3>
+                <p style={{ color: 'var(--slate-text)', fontSize: '0.95rem', flexGrow: 1, marginBottom: '24px' }}>
+                  A formal MOU-based partnership framework for colleges and universities to integrate Touchmark Concourse Centre programmes into their placement and industry connect ecosystem.
+                </p>
+                <Link to="/institutions" style={{ fontWeight: '600', color: 'var(--royal-blue)', display: 'inline-flex', alignItems: 'center', gap: '4px' }}>Partner with us <ArrowRight size={16} /></Link>
+              </div>
 
-            {/* Other Programmes */}
+              {/* Venture Sprint */}
+              <div className="card-editorial glass-card animate-on-scroll delay-300" style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
+                   <div className="icon-box" style={{ marginBottom: 0 }}><Rocket size={24}/></div>
+                   <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--slate-text)', textTransform: 'uppercase', background: 'var(--sky-blue)', padding: '4px 8px', borderRadius: '4px' }}>Coming Soon - 2025</span>
+                </div>
+                <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--royal-blue)', textTransform: 'uppercase', marginBottom: '8px' }}>Innovation</div>
+                <h3 style={{ fontSize: '1.25rem', marginBottom: '12px' }}>Concourse Venture Sprint Programme</h3>
+                <p style={{ color: 'var(--slate-text)', fontSize: '0.95rem', flexGrow: 1 }}>
+                  A venture studio-style sprint programme where select student teams work on real startup and innovation challenges from global companies. Designed around rapid prototype delivery and entrepreneurial thinking.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* Remaining 3 Programmes in a perfect 3-column row */}
+          <div className="grid-3 mb-12">
             {[
-              { icon: <Rocket size={24}/>, type: 'Innovation', status: 'Coming Soon - 2025', title: 'Concourse Venture Sprint Programme', desc: 'A venture studio-style sprint programme where select student teams work on real startup and innovation challenges from global companies. Designed around rapid prototype delivery and entrepreneurial thinking.' },
               { icon: <Microscope size={24}/>, type: 'Research', status: 'Upcoming', title: 'Concourse Research Fellowship', desc: 'A structured research collaboration programme connecting final-year and postgraduate students with international companies and research teams for applied research, technical documentation, and knowledge asset creation.' },
               { icon: <Factory size={24}/>, type: 'Industry', status: 'Upcoming', title: 'Concourse Industry Immersion Programme', desc: 'Short-format industry exposure programme where students spend focused time with global company teams - attending live business meetings, observing real operations, and building professional network exposure before graduation.' },
               { icon: <GraduationCap size={24}/>, type: 'Skilling', status: 'Upcoming', title: 'Concourse Global Skills Certification', desc: 'A skills validation and certification programme co-designed with international companies. Students are assessed and certified on in-demand global skills - creating industry-endorsed credentials that complement academic qualifications.' }
             ].map((prog, i) => (
-              <div key={i} className="card-editorial glass-card animate-on-scroll" style={{ transitionDelay: `${(i % 3 + 1) * 100}ms` }}>
+              <div key={i} className="card-editorial glass-card animate-on-scroll" style={{ transitionDelay: `${(i % 3 + 1) * 100}ms`, display: 'flex', flexDirection: 'column' }}>
                 <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '16px' }}>
                    <div className="icon-box" style={{ marginBottom: 0 }}>{prog.icon}</div>
                    <span style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--slate-text)', textTransform: 'uppercase', background: 'var(--sky-blue)', padding: '4px 8px', borderRadius: '4px' }}>{prog.status}</span>
                 </div>
                 <div style={{ fontSize: '0.75rem', fontWeight: '700', color: 'var(--royal-blue)', textTransform: 'uppercase', marginBottom: '8px' }}>{prog.type}</div>
                 <h3 style={{ fontSize: '1.25rem', marginBottom: '12px' }}>{prog.title}</h3>
-                <p style={{ color: 'var(--slate-text)', fontSize: '0.95rem' }}>{prog.desc}</p>
+                <p style={{ color: 'var(--slate-text)', fontSize: '0.95rem', flexGrow: 1 }}>{prog.desc}</p>
               </div>
             ))}
           </div>
@@ -321,7 +355,7 @@ const Home = () => {
               </div>
            </div>
            
-           <div className="animate-on-scroll delay-200">
+           <div className="animate-on-scroll delay-200" style={{ marginTop: '48px' }}>
               <h3 className="text-gradient-blue" style={{ fontSize: '1.5rem', marginBottom: '32px' }}>The Process</h3>
               <div>
                  {[

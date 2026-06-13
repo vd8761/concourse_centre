@@ -112,12 +112,11 @@ const Companies = () => {
       </section>
 
       {/* Dark Value Prop Section */}
-      <section className="section text-white text-left" style={{
+      <section className="section text-white text-left py-24" style={{
         backgroundImage: 'linear-gradient(rgba(15, 23, 42, 0.9), rgba(15, 23, 42, 0.9)), url(/images/corporate_bg.png)',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
-        padding: '120px 0',
         minHeight: '600px',
         display: 'flex',
         alignItems: 'center'

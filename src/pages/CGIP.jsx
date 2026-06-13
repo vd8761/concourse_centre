@@ -58,7 +58,7 @@ const CGIP = () => {
               </span>
             </div>
             
-            <div className="animate-on-scroll" style={{ display: 'flex', gap: '16px', justifyContent: 'center' }}>
+            <div className="animate-on-scroll" style={{ display: 'flex', flexWrap: 'wrap', gap: '16px', justifyContent: 'center' }}>
               <Link to="/apply" className="btn btn-white" style={{ fontWeight: '700', padding: '16px 36px', borderRadius: '50px', fontSize: '1.05rem' }}>
                 Apply Now <ArrowRight size={18} className="btn-icon" />
               </Link>
@@ -94,8 +94,8 @@ const CGIP = () => {
         </div>
       </section>
 
-      {/* The Core Process */}
-      <section style={{ padding: '100px 0', background: 'var(--light-bg)' }}>
+      {/* Overview/About Section */}
+      <section className="py-24" style={{ background: 'var(--light-bg)' }}>
         <div className="container">
           <div style={{ textAlign: 'center', maxWidth: '700px', margin: '0 auto 80px' }} className="animate-on-scroll">
             <h2 style={{ fontSize: '3rem', marginBottom: '20px', letterSpacing: '-0.02em', color: 'var(--deep-navy)', fontWeight: '800' }}>How It Works</h2>
@@ -182,7 +182,7 @@ const CGIP = () => {
       </section>
 
       {/* CTA Section */}
-      <section style={{ padding: '100px 0', background: 'var(--white)' }}>
+      <section className="py-24" style={{ background: 'var(--white)' }}>
         <div className="container animate-on-scroll">
           <div className="bento-card" style={{ background: 'linear-gradient(135deg, var(--deep-navy) 0%, #1e3a8a 100%)', color: 'white', padding: '80px 40px', textAlign: 'center', borderRadius: '24px', boxShadow: '0 30px 60px -15px rgba(10, 37, 64, 0.5)', position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, backgroundImage: 'radial-gradient(circle at 80% 20%, rgba(255,255,255,0.05) 0%, transparent 40%)', pointerEvents: 'none' }}></div>

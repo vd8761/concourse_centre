@@ -1,10 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import { Link, NavLink, useLocation } from 'react-router-dom';
-import { Globe2, ArrowRight } from 'lucide-react';
+import { Globe2, ArrowRight, Menu, X } from 'lucide-react';
 import Logo from './Logo';
 
 const Navbar = () => {
   const [scrolled, setScrolled] = useState(false);
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
   const location = useLocation();
 
 
@@ -21,7 +22,12 @@ const Navbar = () => {
   }, []);
 
   const isDarkHeroPage = location.pathname === '/cgip';
-  const useLightStyle = !scrolled && isDarkHeroPage;
+  const useLightStyle = !scrolled && isDarkHeroPage && !mobileMenuOpen;
+
+  // Close mobile menu when route changes
+  useEffect(() => {
+    setMobileMenuOpen(false);
+  }, [location.pathname]);
 
   return (
     <header className={useLightStyle ? 'navbar-dark-bg' : ''} style={{ 
@@ -51,19 +57,40 @@ const Navbar = () => {
           </Link>
         </div>
         
-        <nav style={{ display: 'flex', gap: '36px', alignItems: 'center', fontWeight: '500', fontSize: '0.95rem', letterSpacing: '-0.01em' }}>
-          <NavLink to="/about" className="nav-link">About</NavLink>
-          <NavLink to="/programmes" className="nav-link">Initiatives</NavLink>
-          <NavLink to="/cgip" className="nav-link">CGIP</NavLink>
-          <NavLink to="/institutions" className="nav-link">Institutions</NavLink>
+        <div className={`mobile-menu-overlay ${mobileMenuOpen ? 'open' : ''}`} onClick={() => setMobileMenuOpen(false)}></div>
+        
+        <nav className={`nav-links-container ${mobileMenuOpen ? 'open' : ''}`} style={{ display: 'flex', gap: '36px', alignItems: 'center', fontWeight: '500', fontSize: '0.95rem', letterSpacing: '-0.01em' }}>
+          <NavLink to="/about" className="nav-link" onClick={() => setMobileMenuOpen(false)}>About</NavLink>
+          <NavLink to="/programmes" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Initiatives</NavLink>
+          <NavLink to="/cgip" className="nav-link" onClick={() => setMobileMenuOpen(false)}>CGIP</NavLink>
+          <NavLink to="/institutions" className="nav-link" onClick={() => setMobileMenuOpen(false)}>Institutions</NavLink>
+          
+          {/* Actions inside mobile menu (shown only on mobile) */}
+          <div className="mobile-actions-wrapper" style={{ display: 'flex', flexDirection: 'column', gap: '16px', marginTop: '32px', width: '100%' }}>
+            <style>{`
+              @media (min-width: 993px) { .mobile-actions-wrapper { display: none !important; } }
+              .mobile-actions-wrapper a { font-size: 1.1rem !important; margin-bottom: 0 !important; width: 100%; text-align: center; }
+            `}</style>
+            <Link to="/contact" className="btn" style={{ padding: '12px', border: '1px solid var(--soft-grey)', borderRadius: '8px' }} onClick={() => setMobileMenuOpen(false)}>Get in Touch</Link>
+            <Link to="/apply" className="btn btn-primary glow-primary" style={{ padding: '12px', borderRadius: '8px' }} onClick={() => setMobileMenuOpen(false)}>Apply</Link>
+          </div>
         </nav>
         
-        <div className="actions" style={{ display: 'flex', gap: '32px', alignItems: 'center', fontWeight: '500', fontSize: '0.95rem', letterSpacing: '-0.01em' }}>
+        <div className="actions navbar-actions" style={{ display: 'flex', gap: '32px', alignItems: 'center', fontWeight: '500', fontSize: '0.95rem', letterSpacing: '-0.01em' }}>
           <Link to="/contact" className="nav-link">Get in Touch</Link>
           <Link to="/apply" className="btn btn-primary btn-sm glow-primary" style={{ padding: '10px 28px', fontSize: '0.95rem', fontWeight: '600' }}>
             Apply
           </Link>
         </div>
+
+        <button 
+          className="mobile-menu-btn" 
+          onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          aria-label="Toggle menu"
+          style={{ color: useLightStyle ? 'var(--white)' : 'var(--deep-navy)' }}
+        >
+          {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+        </button>
 
       </div>
     </header>

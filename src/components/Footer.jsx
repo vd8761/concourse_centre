@@ -6,14 +6,25 @@ import Logo from './Logo';
 const Footer = () => {
   return (
     <footer style={{ paddingTop: '64px', paddingBottom: '32px', background: 'var(--deep-navy)', color: 'rgba(255,255,255,0.7)' }}>
-      <div className="container grid-3" style={{ gridTemplateColumns: '1.5fr 1fr 1fr 1fr', gap: '48px' }}>
+      <style>{`
+        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr 1fr; gap: 48px; }
+        @media (max-width: 1024px) { .footer-grid { grid-template-columns: 1fr 1fr; } }
+        @media (max-width: 768px) { 
+          .footer-grid { grid-template-columns: 1fr 1fr; gap: 40px 24px; }
+          .footer-grid > div:first-child { grid-column: 1 / -1; }
+        }
+        @media (max-width: 480px) {
+          .footer-grid { gap: 32px 16px; }
+        }
+      `}</style>
+      <div className="container footer-grid">
         <div>
           <div className="logo" style={{ marginBottom: '24px' }}>
             <Link to="/" style={{ display: 'inline-block', textDecoration: 'none' }}>
               <Logo variant="light" />
             </Link>
           </div>
-          <p style={{ lineHeight: '1.8', fontSize: '0.95rem', paddingRight: '24px', color: 'rgba(255,255,255,0.7)' }}>
+          <p style={{ lineHeight: '1.8', fontSize: '0.95rem', color: 'rgba(255,255,255,0.7)' }}>
             India's Global Talent Bridge. Connecting Indian talent to global opportunity through merit-based programmes, real work, and structured verification.
           </p>
         </div>
@@ -51,9 +62,14 @@ const Footer = () => {
           </ul>
         </div>
       </div>
-      <div className="container" style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}>
+      <div className="container footer-bottom" style={{ marginTop: '48px', paddingTop: '24px', borderTop: '1px solid rgba(255,255,255,0.1)', display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: '0.9rem' }}>
+        <style>{`
+          @media (max-width: 768px) {
+            .footer-bottom { flex-direction: column; gap: 16px; text-align: center; }
+          }
+        `}</style>
         <p>&copy; {new Date().getFullYear()} Touchmark Descience Pvt Ltd. All rights reserved.</p>
-        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap' }}>
+        <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
            <Link to="/terms" className="footer-link">Terms & Conditions</Link>
            <Link to="/privacy" className="footer-link">Privacy Policy</Link>
         </div>

@@ -57,50 +57,56 @@ const Institutions = () => {
       </section>
 
       {/* Unified Dark Value Prop Section */}
-      <section className="section text-white text-left" style={{
+      <section className="section text-white text-left py-24" style={{
         backgroundImage: 'linear-gradient(rgba(15, 23, 42, 0.92), rgba(15, 23, 42, 0.92)), url("https://images.unsplash.com/photo-1541339907198-e08756dedf3f?auto=format&fit=crop&q=80")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundAttachment: 'fixed',
-        padding: '120px 0',
         minHeight: '800px',
         display: 'flex',
         alignItems: 'center'
       }}>
         <div className="container">
-          <div className="grid-2 align-center" style={{ gap: '64px' }}>
+          <div className="grid-2 align-center mobile-gap-32" style={{ gap: '64px' }}>
             
             {/* Left Column: 5 Features */}
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+            <div className="features-list" style={{ display: 'flex', flexDirection: 'column', gap: '32px' }}>
+              <div style={{ marginBottom: '8px' }}>
+                <span className="badge" style={{ display: 'inline-block', marginBottom: '16px', background: 'rgba(16, 185, 129, 0.15)', color: 'var(--emerald-green)', border: '1px solid rgba(16, 185, 129, 0.3)' }}>Why Partner With Us</span>
+                <h2 style={{ fontSize: '2.5rem', fontWeight: '800', lineHeight: '1.2', letterSpacing: '-0.02em', color: 'white' }}>
+                  The Touchmark Advantage
+                </h2>
+              </div>
+              
+              <div className="feature-item" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                 <CheckCircle2 color="var(--emerald-green)" size={28} style={{ flexShrink: 0, marginTop: '2px' }} />
                 <span style={{ fontSize: '1.05rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.85)' }}>
                   <strong style={{ color: 'white', fontSize: '1.15rem', fontWeight: '700' }}>International Internship Access:</strong> Give students access to verified remote opportunities across 4+ countries.
                 </span>
               </div>
 
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <div className="feature-item" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                 <CheckCircle2 color="var(--emerald-green)" size={28} style={{ flexShrink: 0, marginTop: '2px' }} />
                 <span style={{ fontSize: '1.05rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.85)' }}>
                   <strong style={{ color: 'white', fontSize: '1.15rem', fontWeight: '700' }}>Merit-Based, Credible Placement:</strong> Every placement is merit-selected and internationally verified.
                 </span>
               </div>
 
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <div className="feature-item" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                 <CheckCircle2 color="var(--emerald-green)" size={28} style={{ flexShrink: 0, marginTop: '2px' }} />
                 <span style={{ fontSize: '1.05rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.85)' }}>
                   <strong style={{ color: 'white', fontSize: '1.15rem', fontWeight: '700' }}>Formal MOU Framework:</strong> Clean, one-page MOU establishes collaboration with no complex overhead.
                 </span>
               </div>
 
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <div className="feature-item" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                 <CheckCircle2 color="var(--emerald-green)" size={28} style={{ flexShrink: 0, marginTop: '2px' }} />
                 <span style={{ fontSize: '1.05rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.85)' }}>
                   <strong style={{ color: 'white', fontSize: '1.15rem', fontWeight: '700' }}>Multiple Programme Access:</strong> Partner institutions gain access to all current and upcoming Touchmark Concourse Centre initiatives.
                 </span>
               </div>
 
-              <div style={{ display: 'flex', gap: '20px', alignItems: 'flex-start' }}>
+              <div className="feature-item" style={{ display: 'flex', gap: '16px', alignItems: 'flex-start' }}>
                 <CheckCircle2 color="var(--emerald-green)" size={28} style={{ flexShrink: 0, marginTop: '2px' }} />
                 <span style={{ fontSize: '1.05rem', lineHeight: '1.6', color: 'rgba(255,255,255,0.85)' }}>
                   <strong style={{ color: 'white', fontSize: '1.15rem', fontWeight: '700' }}>Dedicated Institutional Liaison:</strong> A Touchmark representative works directly with your placement officer.

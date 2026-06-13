@@ -270,7 +270,7 @@ const Contact = () => {
                     error={errors.verification} 
                   />
                   
-                  <div style={{ display: 'flex', gap: '24px', alignItems: 'center', marginTop: '16px' }}>
+                  <div className="submit-row" style={{ marginTop: '16px' }}>
                     <button type="submit" disabled={isSubmitting} className="btn btn-primary glow-primary" style={{ display: 'flex', alignItems: 'center', gap: '8px', border: 'none', cursor: isSubmitting ? 'not-allowed' : 'pointer', opacity: isSubmitting ? 0.7 : 1, flexShrink: 0 }}>
                       {isSubmitting ? 'Sending...' : 'Submit Enquiry'} <ArrowRight size={18} />
                     </button>
