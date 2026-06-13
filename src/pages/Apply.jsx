@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { ArrowRight, CheckCircle2, GraduationCap, Building2, Send } from 'lucide-react';
 import HumanVerification from '../components/HumanVerification';
+import SEO from '../components/SEO';
 
 const Apply = () => {
   const [applicantType, setApplicantType] = useState('student'); // 'student' or 'company'
@@ -36,6 +37,10 @@ const Apply = () => {
 
   return (
     <div style={{ paddingTop: '96px', background: 'var(--light-bg)', minHeight: '100vh' }}>
+      <SEO 
+        title="Apply Now | Touchmark Concourse Centre"
+        description="Apply for our global internship programmes or register as a partner institution to join the global network."
+      />
       
       <section style={{ padding: '60px 0', position: 'relative' }}>
         <div className="container">

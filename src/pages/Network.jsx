@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Globe, MapPin, Building2, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Network = () => {
   useEffect(() => {
@@ -20,6 +21,10 @@ const Network = () => {
 
   return (
     <div style={{ paddingTop: '96px', background: 'var(--white)', minHeight: '100vh' }}>
+      <SEO 
+        title="Global Hubs & Network"
+        description="Explore our network spanning 4+ global hubs including the US, UK, Australia, and Singapore."
+      />
       
       {/* Hero Section */}
       <section style={{ padding: '80px 0 40px', position: 'relative' }}>
@@ -41,7 +46,9 @@ const Network = () => {
             {/* US */}
             <div className="bento-card" style={{ padding: '40px', borderTop: '4px solid var(--royal-blue)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                <div style={{ width: '48px', height: '48px', background: 'var(--light-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>🇺🇸</div>
+                <div style={{ width: '48px', height: '48px', background: 'var(--light-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <img src="https://flagcdn.com/us.svg" alt="US Flag" style={{ width: '24px', objectFit: 'contain' }} />
+                </div>
                 <h3 style={{ fontSize: '1.5rem' }}>United States</h3>
               </div>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -54,7 +61,9 @@ const Network = () => {
             {/* UK */}
             <div className="bento-card" style={{ padding: '40px', borderTop: '4px solid var(--royal-blue)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                <div style={{ width: '48px', height: '48px', background: 'var(--light-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>🇬🇧</div>
+                <div style={{ width: '48px', height: '48px', background: 'var(--light-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <img src="https://flagcdn.com/gb.svg" alt="UK Flag" style={{ width: '24px', objectFit: 'contain' }} />
+                </div>
                 <h3 style={{ fontSize: '1.5rem' }}>United Kingdom</h3>
               </div>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -67,7 +76,9 @@ const Network = () => {
             {/* Australia */}
             <div className="bento-card" style={{ padding: '40px', borderTop: '4px solid var(--royal-blue)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                <div style={{ width: '48px', height: '48px', background: 'var(--light-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>🇦🇺</div>
+                <div style={{ width: '48px', height: '48px', background: 'var(--light-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <img src="https://flagcdn.com/au.svg" alt="Australia Flag" style={{ width: '24px', objectFit: 'contain' }} />
+                </div>
                 <h3 style={{ fontSize: '1.5rem' }}>Australia</h3>
               </div>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
@@ -79,7 +90,9 @@ const Network = () => {
             {/* Singapore */}
             <div className="bento-card" style={{ padding: '40px', borderTop: '4px solid var(--royal-blue)' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '16px', marginBottom: '24px' }}>
-                <div style={{ width: '48px', height: '48px', background: 'var(--light-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', fontSize: '1.5rem' }}>🇸🇬</div>
+                <div style={{ width: '48px', height: '48px', background: 'var(--light-bg)', borderRadius: '50%', display: 'flex', alignItems: 'center', justifyContent: 'center', overflow: 'hidden' }}>
+                  <img src="https://flagcdn.com/sg.svg" alt="Singapore Flag" style={{ width: '24px', objectFit: 'contain' }} />
+                </div>
                 <h3 style={{ fontSize: '1.5rem' }}>Singapore</h3>
               </div>
               <ul style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>

@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ArrowRight, Globe2, Briefcase, GraduationCap, CheckCircle2, Star, ShieldCheck } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const CGIP = () => {
   useEffect(() => {
@@ -21,6 +22,10 @@ const CGIP = () => {
 
   return (
     <main style={{ backgroundColor: 'var(--light-bg)' }}>
+      <SEO 
+        title="Concourse Global Internship Programme (CGIP)"
+        description="Fast-track your career with guaranteed global placements in top-tier companies across Silicon Valley, London, Sydney, and Singapore."
+      />
       
       {/* Premium Hero Section */}
       <section style={{ paddingTop: '160px', paddingBottom: '140px', position: 'relative', overflow: 'hidden', background: 'linear-gradient(135deg, var(--deep-navy) 0%, #1e3a8a 100%)' }}>

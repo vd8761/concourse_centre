@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { ArrowRight, Building2, ClipboardList, RefreshCw, Handshake, CheckCircle2 } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const Institutions = () => {
   useEffect(() => {
@@ -20,6 +21,10 @@ const Institutions = () => {
 
   return (
     <main style={{ backgroundColor: 'var(--white)' }}>
+      <SEO 
+        title="For Institutions | Partner with Us"
+        description="Give your students a global advantage. Partner with Touchmark Concourse Centre to offer elite international internship opportunities."
+      />
       
       {/* Hero Section */}
       <section style={{ paddingTop: '136px', paddingBottom: '40px', position: 'relative', overflow: 'hidden' }}>

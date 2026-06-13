@@ -1,6 +1,7 @@
 import React, { useEffect } from 'react';
 import { Target, Compass, Users, ArrowRight, Award } from 'lucide-react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 
 const About = () => {
   useEffect(() => {
@@ -20,6 +21,10 @@ const About = () => {
 
   return (
     <main style={{ backgroundColor: 'var(--white)' }}>
+      <SEO 
+        title="About Us"
+        description="Learn about Touchmark Concourse Centre's mission to empower the next generation of global leaders and our commitment to educational excellence."
+      />
       
       {/* Hero Section */}
       <section style={{ paddingTop: '136px', paddingBottom: '40px', position: 'relative', overflow: 'hidden' }}>

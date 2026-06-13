@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
+import { HelmetProvider } from 'react-helmet-async';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
 import Home from './pages/Home';
@@ -32,8 +33,9 @@ const ScrollToTop = () => {
 
 function App() {
   return (
-    <Router>
-      <ScrollToTop />
+    <HelmetProvider>
+      <Router>
+        <ScrollToTop />
       <div style={{ display: 'flex', flexDirection: 'column', minHeight: '100vh' }}>
         <Navbar />
         <div style={{ flexGrow: 1 }}>
@@ -54,7 +56,8 @@ function App() {
         </div>
         <Footer />
       </div>
-    </Router>
+      </Router>
+    </HelmetProvider>
   );
 }
 

@@ -3,6 +3,7 @@ import { Mail, MapPin, Phone, MessageSquare, ArrowRight, CheckCircle2 } from 'lu
 import CountrySelect from '../components/CountrySelect';
 import { countries } from '../utils/countries';
 import HumanVerification from '../components/HumanVerification';
+import SEO from '../components/SEO';
 
 const Contact = () => {
   const [countryCode, setCountryCode] = useState('+91');
@@ -38,6 +39,10 @@ const Contact = () => {
 
   return (
     <div style={{ paddingTop: '96px', background: 'var(--light-bg)', minHeight: '100vh' }}>
+      <SEO 
+        title="Contact Us | Touchmark Concourse Centre"
+        description="Get in touch with our team to learn more about our programmes and partnership opportunities."
+      />
       
       <section style={{ padding: '60px 0', position: 'relative' }}>
         <div className="container">

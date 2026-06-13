@@ -1,12 +1,28 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { Link } from 'react-router-dom';
+import SEO from '../components/SEO';
 import { 
   ArrowRight, Globe2, Building2, Trophy, 
   ClipboardList, FileBadge, Rocket, Microscope, 
   Factory, GraduationCap, Handshake, CheckCircle2
 } from 'lucide-react';
 
+const heroImages = [
+  { name: 'Singapore', src: '/images/singapore_hero.png' },
+  { name: 'Dubai', src: '/images/dubai_hero.png' },
+  { name: 'Mauritius', src: '/images/mauritius_hero.png' },
+  { name: 'Japan', src: '/images/japan_hero.png' }
+];
+
 const Home = () => {
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
+
+  useEffect(() => {
+    const interval = setInterval(() => {
+      setCurrentImageIndex((prev) => (prev + 1) % heroImages.length);
+    }, 5000);
+    return () => clearInterval(interval);
+  }, []);
   useEffect(() => {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
@@ -30,32 +46,45 @@ const Home = () => {
 
   return (
     <main style={{ backgroundColor: 'var(--white)' }}>
+      <SEO 
+        title="Touchmark Concourse Centre | India's Global Talent Bridge"
+        description="Connecting Indian talent to global opportunity through merit-based international programmes. Build real skills and real careers."
+      />
       {/* Hero Section */}
       <section className="bg-mesh-light" style={{ paddingTop: '136px', paddingBottom: '120px' }}>
-        <div className="container grid-2" style={{ alignItems: 'center' }}>
+        <div className="container grid-2" style={{ alignItems: 'center', gap: '64px' }}>
           <div>
-            <div className="badge badge-premium mb-6 animate-on-scroll">Touchmark Concourse Centre</div>
             <h1 className="text-gradient-blue animate-on-scroll delay-100" style={{ fontSize: 'clamp(2.5rem, 10vw, 4rem)', marginBottom: '16px', paddingBottom: '8px', lineHeight: '1.1', letterSpacing: '-0.03em' }}>
               India's Global<br />Talent Bridge
             </h1>
-            <h2 className="animate-on-scroll delay-200" style={{ fontSize: '1.25rem', fontWeight: '500', color: 'var(--slate-text)', marginBottom: '32px', maxWidth: '500px', lineHeight: '1.5' }}>
+            <h2 className="animate-on-scroll delay-200" style={{ fontSize: '1.25rem', fontWeight: '600', color: 'var(--deep-navy)', marginBottom: '32px', maxWidth: '500px', lineHeight: '1.5' }}>
               Connecting Indian Talent to Global Opportunity
             </h2>
             <p className="mb-8 animate-on-scroll delay-200" style={{ fontSize: '1.125rem', color: 'var(--slate-text)' }}>
               Touchmark Concourse Centre runs merit-based international programmes that place Indian students and professionals inside global companies - building real skills, real experience, and real careers.
             </p>
             <div className="animate-on-scroll delay-300 hero-buttons" style={{ display: 'flex', gap: '16px', alignItems: 'center' }}>
-              <Link to="/programmes" className="btn btn-primary glow-primary">
+              <Link to="/programmes" className="btn btn-primary" style={{ padding: '16px 32px' }}>
                 Explore Our Programmes <ArrowRight size={18} className="btn-icon" />
               </Link>
-              <Link to="/institutions" className="btn btn-secondary glass-card">
+              <Link to="/institutions" className="btn btn-white" style={{ padding: '16px 32px', border: '1px solid rgba(0,0,0,0.05)', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }}>
                 Partner With Us
               </Link>
             </div>
           </div>
           
-          <div className="animate-on-scroll delay-200" style={{ height: '540px', width: '100%', position: 'relative' }}>
-            <img src="/images/hero_global_talent.png" alt="Indian students collaborating in a modern corporate setting" className="img-cover" style={{ boxShadow: 'var(--shadow-lg)' }} />
+          <div className="animate-on-scroll delay-200" style={{ height: '540px', width: '100%', position: 'relative', borderRadius: '24px', overflow: 'hidden', boxShadow: '0 25px 50px -12px rgba(0,0,0,0.25)' }}>
+            {heroImages.map((img, idx) => (
+              <img 
+                key={img.name}
+                src={img.src} 
+                alt={`${img.name} Skyline`} 
+                className={`carousel-image ${idx === currentImageIndex ? 'active' : ''}`}
+              />
+            ))}
+            <div style={{ position: 'absolute', bottom: '24px', right: '24px', zIndex: 10, background: 'rgba(0,0,0,0.5)', backdropFilter: 'blur(10px)', color: 'white', padding: '8px 16px', borderRadius: '50px', fontSize: '0.85rem', fontWeight: '600', letterSpacing: '0.05em' }}>
+              {heroImages[currentImageIndex].name}
+            </div>
           </div>
         </div>
       </section>

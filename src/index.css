@@ -907,3 +907,23 @@ select.form-input {
     height: 24px !important;
   }
 }
+ 
+ /* Carousel Image Transitions */
+.carousel-image {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 0;
+  transition: opacity 1.5s ease-in-out, transform 8s ease-out;
+  transform: scale(1.1); /* Scale up to crop edges */
+  border-radius: 24px;
+}
+
+.carousel-image.active {
+  opacity: 1;
+  transform: scale(1.05); /* Keep slightly scaled to hide corner watermarks */
+  z-index: 1;
+}
